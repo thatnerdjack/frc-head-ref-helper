@@ -21,12 +21,38 @@
 			remoteGlobalIDString = DAFA2DB23055D11A00E37AAC;
 			remoteInfo = "FRC Head Ref Helper";
 		};
+		AA010000000000000000AAB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAFA2DAB3055D11A00E37AAC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA010000000000000000AAA2;
+			remoteInfo = RefWidgets;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXBuildFile section */
+		AA010000000000000000AAB4 /* RefWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA010000000000000000AAA1 /* RefWidgets.appex */; platformFilters = (ios, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AA010000000000000000AAB1 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AA010000000000000000AAB4 /* RefWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DAFA2DB33055D11A00E37AAC /* FRC Head Ref Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FRC Head Ref Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFA2DC43055D11B00E37AAC /* FRC Head Ref HelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FRC Head Ref HelperTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFA2DCE3055D11B00E37AAC /* FRC Head Ref HelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FRC Head Ref HelperUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA010000000000000000AAA1 /* RefWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RefWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -36,6 +62,13 @@
 				Info.plist,
 			);
 			target = DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */;
+		};
+		AA010000000000000000AAB5 /* Exceptions for "RefWidgets" folder in "RefWidgets" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = AA010000000000000000AAA2 /* RefWidgets */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -56,6 +89,19 @@
 		DAFA2DD13055D11B00E37AAC /* FRC Head Ref HelperUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "FRC Head Ref HelperUITests";
+			sourceTree = "<group>";
+		};
+		AA010000000000000000AAA6 /* RefWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AA010000000000000000AAB5 /* Exceptions for "RefWidgets" folder in "RefWidgets" target */,
+			);
+			path = RefWidgets;
+			sourceTree = "<group>";
+		};
+		AA010000000000000000AAA7 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -82,12 +128,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA010000000000000000AAA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DAFA2DAA3055D11A00E37AAC = {
 			isa = PBXGroup;
 			children = (
+				AA010000000000000000AAA7 /* Shared */,
+				AA010000000000000000AAA6 /* RefWidgets */,
 				DAFA2DB53055D11A00E37AAC /* FRC Head Ref Helper */,
 				DAFA2DC73055D11B00E37AAC /* FRC Head Ref HelperTests */,
 				DAFA2DD13055D11B00E37AAC /* FRC Head Ref HelperUITests */,
@@ -101,6 +156,7 @@
 				DAFA2DB33055D11A00E37AAC /* FRC Head Ref Helper.app */,
 				DAFA2DC43055D11B00E37AAC /* FRC Head Ref HelperTests.xctest */,
 				DAFA2DCE3055D11B00E37AAC /* FRC Head Ref HelperUITests.xctest */,
+				AA010000000000000000AAA1 /* RefWidgets.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -115,13 +171,16 @@
 				DAFA2DAF3055D11A00E37AAC /* Sources */,
 				DAFA2DB03055D11A00E37AAC /* Frameworks */,
 				DAFA2DB13055D11A00E37AAC /* Resources */,
+				AA010000000000000000AAB1 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AA010000000000000000AAB2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				DAFA2DB53055D11A00E37AAC /* FRC Head Ref Helper */,
+				AA010000000000000000AAA7 /* Shared */,
 			);
 			name = "FRC Head Ref Helper";
 			packageProductDependencies = (
@@ -176,6 +235,29 @@
 			productReference = DAFA2DCE3055D11B00E37AAC /* FRC Head Ref HelperUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		AA010000000000000000AAA2 /* RefWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA010000000000000000AAA8 /* Build configuration list for PBXNativeTarget "RefWidgets" */;
+			buildPhases = (
+				AA010000000000000000AAA3 /* Sources */,
+				AA010000000000000000AAA4 /* Frameworks */,
+				AA010000000000000000AAA5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA010000000000000000AAA6 /* RefWidgets */,
+				AA010000000000000000AAA7 /* Shared */,
+			);
+			name = RefWidgets;
+			packageProductDependencies = (
+			);
+			productName = RefWidgets;
+			productReference = AA010000000000000000AAA1 /* RefWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -187,6 +269,9 @@
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
 					DAFA2DB23055D11A00E37AAC = {
+						CreatedOnToolsVersion = 26.6;
+					};
+					AA010000000000000000AAA2 = {
 						CreatedOnToolsVersion = 26.6;
 					};
 					DAFA2DC33055D11B00E37AAC = {
@@ -214,6 +299,7 @@
 			projectRoot = "";
 			targets = (
 				DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */,
+				AA010000000000000000AAA2 /* RefWidgets */,
 				DAFA2DC33055D11B00E37AAC /* FRC Head Ref HelperTests */,
 				DAFA2DCD3055D11B00E37AAC /* FRC Head Ref HelperUITests */,
 			);
@@ -236,6 +322,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DAFA2DCC3055D11B00E37AAC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA010000000000000000AAA5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -266,6 +359,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA010000000000000000AAA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -279,6 +379,14 @@
 			target = DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */;
 			targetProxy = DAFA2DCF3055D11B00E37AAC /* PBXContainerItemProxy */;
 		};
+		AA010000000000000000AAB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilters = (
+				ios,
+			);
+			target = AA010000000000000000AAA2 /* RefWidgets */;
+			targetProxy = AA010000000000000000AAB3 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -287,15 +395,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AUTOMATION_APPLE_EVENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = "FRC Head Ref Helper/FRC Head Ref Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F4C4286R8Q;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FRC Head Ref Helper/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app will connect to a cheesy-arena server running on your local field network to sync event updates. This functionality is optional, but reccomended.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -306,23 +422,36 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_WKApplication[sdk=watchos*]" = YES;
+				"INFOPLIST_KEY_WKApplication[sdk=watchsimulator*]" = YES;
+				"INFOPLIST_KEY_WKCompanionAppBundleIdentifier[sdk=watchos*]" = "me.jackdoherty.FRC-Head-Ref-Helper";
+				"INFOPLIST_KEY_WKCompanionAppBundleIdentifier[sdk=watchsimulator*]" = "me.jackdoherty.FRC-Head-Ref-Helper";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=watchos*]" = "me.jackdoherty.FRC-Head-Ref-Helper.watchkitapp";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=watchsimulator*]" = "me.jackdoherty.FRC-Head-Ref-Helper.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
 				XROS_DEPLOYMENT_TARGET = 26.5;
 			};
 			name = Debug;
@@ -332,15 +461,23 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				AUTOMATION_APPLE_EVENTS = NO;
+				CODE_SIGN_ENTITLEMENTS = "FRC Head Ref Helper/FRC Head Ref Helper.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F4C4286R8Q;
-				ENABLE_APP_SANDBOX = YES;
-				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_APP_SANDBOX = NO;
+				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "FRC Head Ref Helper/Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "This app will connect to a cheesy-arena server running on your local field network to sync event updates. This functionality is optional, but reccomended.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -351,23 +488,36 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				"INFOPLIST_KEY_WKApplication[sdk=watchos*]" = YES;
+				"INFOPLIST_KEY_WKApplication[sdk=watchsimulator*]" = YES;
+				"INFOPLIST_KEY_WKCompanionAppBundleIdentifier[sdk=watchos*]" = "me.jackdoherty.FRC-Head-Ref-Helper";
+				"INFOPLIST_KEY_WKCompanionAppBundleIdentifier[sdk=watchsimulator*]" = "me.jackdoherty.FRC-Head-Ref-Helper";
 				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 26.4;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=watchos*]" = "me.jackdoherty.FRC-Head-Ref-Helper.watchkitapp";
+				"PRODUCT_BUNDLE_IDENTIFIER[sdk=watchsimulator*]" = "me.jackdoherty.FRC-Head-Ref-Helper.watchkitapp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
 				SDKROOT = auto;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx watchos watchsimulator xros xrsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2,4,7";
+				WATCHOS_DEPLOYMENT_TARGET = 26.5;
 				XROS_DEPLOYMENT_TARGET = 26.5;
 			};
 			name = Release;
@@ -590,6 +740,60 @@
 			};
 			name = Release;
 		};
+		AA010000000000000000AAA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RefWidgets;
+				INFOPLIST_FILE = RefWidgets/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper.RefWidgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA010000000000000000AAB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RefWidgets;
+				INFOPLIST_FILE = RefWidgets/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper.RefWidgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -625,6 +829,15 @@
 			buildConfigurations = (
 				DAFA2DE03055D11B00E37AAC /* Debug */,
 				DAFA2DE13055D11B00E37AAC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA010000000000000000AAA8 /* Build configuration list for PBXNativeTarget "RefWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA010000000000000000AAA9 /* Debug */,
+				AA010000000000000000AAB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

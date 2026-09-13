@@ -1,0 +1,1568 @@
+{
+ "manualSeason": 2026,
+ "manualGame": "REBUILT presented by Haas",
+ "teamUpdate": 22,
+ "rules": [
+  {
+   "code": "G101",
+   "title": "Humans, remain outside the FIELD",
+   "section": "Personal Safety",
+   "statement": "A team member may not reach into the FIELD with any part of their body during a MATCH .",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G102",
+   "title": "Never step over the guardrail",
+   "section": "Personal Safety",
+   "statement": "A team member may only enter or exit the FIELD through open gates and only enter if FIELD lighting (FIELD facing side of the team signs and timers) is green, unless explicitly instructed by a REFEREE or an FTA.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G103",
+   "title": "Be careful what you interact with",
+   "section": "Personal Safety",
+   "statement": "A team member is prohibited from the following actions with regards to interaction with ARENA elements.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G104",
+   "title": "Teams may not enable their ROBOTS on the FIELD",
+   "section": "Personal Safety",
+   "statement": "Teams may not tether to the ROBOT while on the FIELD except in special circumstances (e.g. after Opening Ceremonies, before an immediate MATCH replay, etc.) and with the express permission from the FTA or a REFEREE.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G201",
+   "title": "Be a good person",
+   "section": "Conduct",
+   "statement": "All teams must be civil toward everyone and respectful of team and event equipment while at a FIRST Robotics Competition event.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G202",
+   "title": "Don’t bang on the glass",
+   "section": "Conduct",
+   "statement": "A team member may never strike or hit the DRIVER STATION plastic windows.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G203",
+   "title": "Asking other teams to throw a MATCH – not cool",
+   "section": "Conduct",
+   "statement": "A team may not encourage an ALLIANCE of which it is not a member to play beneath its ability.",
+   "violation": "VERBAL WARNING. RED CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G204",
+   "title": "Letting someone coerce you into throwing a MATCH – also not cool",
+   "section": "Conduct",
+   "statement": "A team, as the result of encouragement by a team not on their ALLIANCE, may not play beneath its ability.",
+   "violation": "VERBAL WARNING. RED CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G205",
+   "title": "Throwing your own MATCH is bad",
+   "section": "Conduct",
+   "statement": "A team may not intentionally lose a MATCH or sacrifice Ranking Points in an effort to lower their own ranking or manipulate the rankings of other teams.",
+   "violation": "VERBAL WARNING. RED CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G206",
+   "title": "Don't violate rules for RPs",
+   "section": "Conduct",
+   "statement": "A team or ALLIANCE may not collude with another team to each purposefully violate a rule in an attempt to influence Ranking Points.",
+   "violation": "YELLOW CARD and the ALLIANCE is ineligible for the BONUS RPs."
+  },
+  {
+   "code": "G207",
+   "title": "Don’t abuse ARENA access",
+   "section": "Conduct",
+   "statement": "A team member (except DRIVERS, HUMAN PLAYERS, and DRIVE COACHES) granted access to restricted areas in and around the ARENA (e.g. via TECHNICIAN button, event issued Media badges, etc.) may not assist or use signaling devices during the MATCH. Exceptions will be granted for inconsequential infractions and in cases concerning safety.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations during the event."
+  },
+  {
+   "code": "G208",
+   "title": "Show up to your Qualification MATCHES",
+   "section": "Conduct",
+   "statement": "If a ROBOT has passed initial, complete inspection, at least 1 member of its DRIVE TEAM must report to the ARENA and participate in each of their assigned Qualification MATCHES.",
+   "violation": "DISQUALIFIED from the current MATCH."
+  },
+  {
+   "code": "G209",
+   "title": "Keep your ROBOT together",
+   "section": "Conduct",
+   "statement": "A ROBOT may not intentionally detach or leave a part on the FIELD.",
+   "violation": "RED CARD."
+  },
+  {
+   "code": "G210",
+   "title": "Don’t expect to gain by doing others harm",
+   "section": "Conduct",
+   "statement": "A strategy not consistent with standard gameplay and clearly aimed at forcing the opponent ALLIANCE to violate a rule is not in the spirit of FIRST Robotics Competition and not allowed. Rule violations forced in this manner will not result in an assignment of a penalty to the targeted ALLIANCE.",
+   "violation": "MAJOR FOUL. YELLOW CARD if REPEATED."
+  },
+  {
+   "code": "G211",
+   "title": "Egregious or exceptional violations",
+   "section": "Conduct",
+   "statement": "Egregious behavior beyond what is listed in the rules or subsequent violations of any rule or procedure during the event is prohibited.",
+   "violation": "YELLOW or RED CARD."
+  },
+  {
+   "code": "G212",
+   "title": "All teams can play",
+   "section": "Conduct",
+   "statement": "A team may not encourage another team to exclude their ROBOT or be BYPASSED from a qualification MATCH for any reason.",
+   "violation": "YELLOW CARD. RED CARD if the ROBOT does not participate in the MATCH."
+  },
+  {
+   "code": "G301",
+   "title": "Be prompt",
+   "section": "Pre-MATCH",
+   "statement": "A DRIVE TEAM member may not cause significant delays to the start of their MATCH. Causing a significant delay requires both of the following to be true:",
+   "violation": "If a Qualification MATCH, VERBAL WARNING. MAJOR FOUL for the upcoming MATCH if a subsequent violation occurs within the tournament phase. If the DRIVE TEAM is not MATCH ready within 2 minutes of the VERBAL WARNING/MAJOR FOUL and the Head REFEREE perceives no good faith effort by the DRIVE TEAM to quickly become MATCH ready, DISABLED."
+  },
+  {
+   "code": "G302",
+   "title": "Limit what you use during a MATCH",
+   "section": "Pre-MATCH",
+   "statement": "Items used during a match must fit on your team’s DRIVER STATION shelf, be worn or held by members from your DRIVE TEAM, or be an item used as an accommodation (e.g. stools, crutches, etc.). Regardless of if the equipment fits the criteria above, it may not:",
+   "violation": "MATCH will not start until the situation is remedied. If discovered or used inappropriately during a MATCH, YELLOW CARD."
+  },
+  {
+   "code": "G303",
+   "title": "Start your ROBOTS",
+   "section": "Pre-MATCH",
+   "statement": "A ROBOT must meet all following MATCH-start requirements:",
+   "violation": "If fix is a quick remedy, the MATCH won’t start until all requirements are met. If it is not a quick remedy, DISABLED and, at the discretion of the Head REFEREE, must be re-inspected. If a ROBOT not compliant with part B or C participates, its team receives a RED CARD."
+  },
+  {
+   "code": "G401",
+   "title": "Behind the lines",
+   "section": "AUTO",
+   "statement": "In AUTO, each DRIVE TEAM member must remain in their staged areas. A DRIVE TEAM member staged behind a HUMAN STARTING LINE may not contact anything in front of that HUMAN STARTING LINE, unless for personal or equipment safety, to press the E-Stop or A-Stop, or granted permission by a Head REFEREE or FTA.",
+   "violation": "MINOR FOUL regardless of the number of items contacted."
+  },
+  {
+   "code": "G402",
+   "title": "Let the ROBOT do its thing",
+   "section": "AUTO",
+   "statement": "In AUTO, a DRIVE TEAM member may not directly or indirectly interact with a ROBOT or an OPERATOR CONSOLE unless for personal safety, OPERATOR CONSOLE safety, or pressing an E-Stop or A-Stop. A HUMAN PLAYER entering FUEL onto the FIELD is an exception to this rule.",
+   "violation": "MINOR FOUL and YELLOW CARD."
+  },
+  {
+   "code": "G403",
+   "title": "Limited AUTO opponent interaction",
+   "section": "AUTO",
+   "statement": "In AUTO, a ROBOT whose BUMPERS are completely across the CENTER LINE (i.e. to the opposite side of the CENTER LINE from its ROBOT STARTING LINE) may not contact an opponent ROBOT.",
+   "violation": "MAJOR FOUL."
+  },
+  {
+   "code": "G404",
+   "title": "ROBOTS: use SCORING ELEMENTS as directed",
+   "section": "SCORING ELEMENTS",
+   "statement": "A ROBOT may not deliberately use a SCORING ELEMENT in an attempt to ease or amplify a challenge associated with a FIELD element.",
+   "violation": "MAJOR FOUL."
+  },
+  {
+   "code": "G405",
+   "title": "Keep SCORING ELEMENTS in bounds",
+   "section": "SCORING ELEMENTS",
+   "statement": "A ROBOT may not intentionally eject SCORING ELEMENTS from the FIELD (either directly or by bouncing off a FIELD element or other ROBOT) with an exception of the OUTPOST.",
+   "violation": "MINOR FOUL. If REPEATED, MAJOR FOUL."
+  },
+  {
+   "code": "G406",
+   "title": "Don’t abuse SCORING ELEMENTS",
+   "section": "SCORING ELEMENTS",
+   "statement": "Neither a ROBOT nor a HUMAN PLAYER may damage a SCORING ELEMENT.",
+   "violation": "VERBAL WARNING. MAJOR FOUL if REPEATED in any subsequent MATCHES during the event. If via a ROBOT and the Head REFEREE determines that further damage is likely to occur, DISABLED. Corrective action (such as eliminating sharp edges, removing the damaging MECHANISM, and/or re-inspection) may be required before the ROBOT may compete in subsequent MATCHES."
+  },
+  {
+   "code": "G407",
+   "title": "Only score while in your ALLIANCE ZONE",
+   "section": "SCORING ELEMENTS",
+   "statement": "A ROBOT may not launch a SCORING ELEMENT into their HUB unless their BUMPERS are partially or fully within their ALLIANCE ZONE.",
+   "violation": "MAJOR FOUL"
+  },
+  {
+   "code": "G408",
+   "title": "Don’t catch FUEL",
+   "section": "SCORING ELEMENTS",
+   "statement": "A ROBOT may not do either of the following with FUEL released by the HUB unless and until that FUEL contacts anything else besides that ROBOT or FUEL CONTROLLED by that ROBOT:",
+   "violation": "MINOR FOUL. If strategic, MAJOR FOUL and YELLOW CARD."
+  },
+  {
+   "code": "G409",
+   "title": "ROBOTS must be safe",
+   "section": "ROBOT",
+   "statement": "A ROBOT may not pose an undue hazard to a human, an ARENA element, or another ROBOT in the following ways:",
+   "violation": "DISABLED. Corrective action (such as repair of BUMPERS, removing the unsafe MECHANISM, and/or re-inspection) may be required before the ROBOT will be allowed to compete in subsequent MATCHES."
+  },
+  {
+   "code": "G410",
+   "title": "Keep your BUMPERS low",
+   "section": "ROBOT",
+   "statement": "ROBOT extensions may not interact with the carpet, BUMPS, or TOWER BASE such that the BUMPERS are lifted out of the BUMPER ZONE (see R405).",
+   "violation": "MINOR FOUL. Corrective action (such as removing the offending MECHANISM, and/or re-inspection) may be required before the ROBOT will be allowed to compete in subsequent MATCHES."
+  },
+  {
+   "code": "G411",
+   "title": "Don’t damage the FIELD",
+   "section": "ROBOT",
+   "statement": "A ROBOT may not damage FIELD elements.",
+   "violation": "VERBAL WARNING. If the Head REFEREE infers that additional damage is likely, DISABLED. YELLOW CARD for any subsequent damage during the event."
+  },
+  {
+   "code": "G412",
+   "title": "Watch your FIELD interaction",
+   "section": "ROBOT",
+   "statement": "A ROBOT is prohibited from the following interactions with FIELD elements (with the exception of the RUNGS and UPRIGHTS):",
+   "violation": "MAJOR FOUL, plus YELLOW CARD if REPEATED, or longer than MOMENTARY. If the Head REFEREE infers that damage is likely, DISABLED. Corrective action (such as removing the offending MECHANISM, and/or re-inspection) may be required before the ROBOT will be allowed to compete in subsequent MATCHES."
+  },
+  {
+   "code": "G413",
+   "title": "Expansion limits",
+   "section": "ROBOT",
+   "statement": "A ROBOT may not extend beyond any of the horizontal or vertical expansion limits described in R105, R106, and R107.",
+   "violation": "MINOR FOUL, or MAJOR FOUL if the over-expansion is used for strategic benefit, including if it impedes or enables a scoring action. Corrective action (such as removing the offending MECHANISM, and/or re-inspection) may be required before the ROBOT will be allowed to compete in subsequent MATCHES."
+  },
+  {
+   "code": "G414",
+   "title": "Don’t Climb on each other",
+   "section": "ROBOT",
+   "statement": "ROBOTS may not fully support the weight of other ROBOTS on their ALLIANCE to climb the TOWER.",
+   "violation": "Supported ROBOTS become ineligible for TOWER points for the remainder of the MATCH."
+  },
+  {
+   "code": "G415",
+   "title": "Stay out of other ROBOTS",
+   "section": "Opponent Interaction",
+   "statement": "A ROBOT may not use a COMPONENT outside its ROBOT PERIMETER (except its BUMPERS) to initiate contact with an opponent ROBOT inside the vertical projection of the opponent’s ROBOT PERIMETER.",
+   "violation": "MINOR FOUL."
+  },
+  {
+   "code": "G416",
+   "title": "This isn’t combat robotics",
+   "section": "Opponent Interaction",
+   "statement": "A ROBOT may not damage or functionally impair an opponent ROBOT in either of the following ways:",
+   "violation": "MAJOR FOUL and YELLOW CARD, or if opponent ROBOT is unable to drive, then MAJOR FOUL and RED CARD."
+  },
+  {
+   "code": "G417",
+   "title": "Don’t tip or entangle",
+   "section": "Opponent Interaction",
+   "statement": "A ROBOT may not deliberately, attach to, tip, or entangle with an opponent ROBOT.",
+   "violation": "MAJOR FOUL and YELLOW CARD, or if CONTINUOUS or opponent ROBOT is unable to drive, then MAJOR FOUL and RED CARD."
+  },
+  {
+   "code": "G418",
+   "title": "There’s a 3-count on PINS",
+   "section": "Opponent Interaction",
+   "statement": "A ROBOT may not PIN an opponent’s ROBOT for more than 3 seconds. A ROBOT is PINNING if it is preventing the movement of an opponent ROBOT by contact, either direct or transitive (such as against a FIELD element). A PIN count ends once any of the following criteria below are met:",
+   "violation": "MINOR FOUL, and for every 3 seconds in which the situation is not corrected, a MAJOR FOUL is assessed."
+  },
+  {
+   "code": "G419",
+   "title": "Don’t collude with your partners to shut down major parts of game play",
+   "section": "Opponent Interaction",
+   "statement": "2 or more ROBOTS that appear to a REFEREE to be working together may not isolate or close off any major element of MATCH play.",
+   "violation": "MAJOR FOUL, and for every 3 seconds in which the situation is not corrected, a MAJOR FOUL is assessed."
+  },
+  {
+   "code": "G420",
+   "title": "TOWER protection",
+   "section": "Opponent Interaction",
+   "statement": "A ROBOT may not contact, directly or transitively through a SCORING ELEMENT, an opponent ROBOT in contact with an opponent TOWER during the last 30 seconds of the MATCH regardless of who initiates contact.",
+   "violation": "MAJOR FOUL and if the opponent ROBOT is off the ground the opponent ROBOT is awarded LEVEL 3 TOWER points."
+  },
+  {
+   "code": "G421",
+   "title": "No wandering",
+   "section": "Human",
+   "statement": "A DRIVE TEAM member must remain in their designated area as follows:",
+   "violation": "MINOR FOUL."
+  },
+  {
+   "code": "G422",
+   "title": "DRIVE COACHES and other teams: hands off the controls",
+   "section": "Human",
+   "statement": "A ROBOT shall be operated only by the DRIVERS and/or HUMAN PLAYERS of that team. A DRIVE COACH activating their E-Stop or A-Stop is the exception to this rule.",
+   "violation": "MAJOR FOUL. RED CARD if greater-than-MOMENTARY."
+  },
+  {
+   "code": "G423",
+   "title": "DRIVE TEAMS, watch your reach",
+   "section": "Human",
+   "statement": "A DRIVE TEAM member may not extend:",
+   "violation": "MINOR FOUL."
+  },
+  {
+   "code": "G424",
+   "title": "Humans: use SCORING ELEMENTS as directed",
+   "section": "Human",
+   "statement": "A DRIVE TEAM member may not deliberately use a SCORING ELEMENT in an attempt to ease or amplify a challenge associated with a FIELD element.",
+   "violation": "MAJOR FOUL."
+  },
+  {
+   "code": "G425",
+   "title": "SCORING ELEMENT delivery",
+   "section": "Human",
+   "statement": "FUEL may only be introduced to the FIELD by a HUMAN PLAYER or DRIVER in the following ways:",
+   "violation": "MAJOR FOUL."
+  },
+  {
+   "code": "G426",
+   "title": "DRIVE COACHES, SCORING ELEMENTS are off limits",
+   "section": "Human",
+   "statement": "DRIVE COACHES may not touch SCORING ELEMENTS, unless for safety purposes.",
+   "violation": "MINOR FOUL."
+  },
+  {
+   "code": "G427",
+   "title": "The OUTPOST has a storage limit",
+   "section": "Human",
+   "statement": "Off-FIELD FUEL may only be stored in the CHUTE and the CORRAL. Excess FUEL, defined as the CHUTE & CORRAL being full, must immediately be entered onto the FIELD.",
+   "violation": "MINOR FOUL, and if CONTINUOUS, a MAJOR FOUL is assessed."
+  },
+  {
+   "code": "G501",
+   "title": "Leave promptly",
+   "section": "Post-MATCH",
+   "statement": "A DRIVE TEAM member may not cause significant or multiple delays to the start of a subsequent MATCH, scheduled break content, or other FIELD activities.",
+   "violation": "VERBAL WARNING. YELLOW CARD if subsequent violations at any point during the event."
+  },
+  {
+   "code": "R101",
+   "title": "ROBOT PERIMETER must be fixed",
+   "section": "General ROBOT Design",
+   "statement": "The ROBOT (excluding BUMPERS) must have a ROBOT PERIMETER, contained within the BUMPER ZONE and established while in the ROBOT’S STARTING CONFIGURATION, that is comprised of fixed, non-articulated structural elements of the ROBOT. Minor protrusions no greater than 0.25in (0.64cm) such as bolt heads, fastener ends, weld beads, and rivets are not considered part of the ROBOT PERIMETER.",
+   "violation": ""
+  },
+  {
+   "code": "R102",
+   "title": "STARTING CONFIGURATION – no overhang",
+   "section": "General ROBOT Design",
+   "statement": "In the STARTING CONFIGURATION (the physical configuration in which a ROBOT starts a MATCH), no part of the ROBOT shall extend outside the vertical projection of the ROBOT PERIMETER, with the exception of its BUMPERS and minor protrusions such as bolt heads, fastener ends, rivets, cable ties, etc.",
+   "violation": ""
+  },
+  {
+   "code": "R103",
+   "title": "ROBOT weight limit",
+   "section": "General ROBOT Design",
+   "statement": "The ROBOT weight must not exceed 115.0lb (52.16kg). When determining weight, the basic ROBOT structure and all elements of all additional MECHANISMS that might be used in a single configuration of the ROBOT shall be weighed together (see I103). For the purposes of determining compliance with the weight limitations, the following items are excluded:",
+   "violation": ""
+  },
+  {
+   "code": "R104",
+   "title": "STARTING CONFIGURATION – max size",
+   "section": "General ROBOT Design",
+   "statement": "A ROBOT’S STARTING CONFIGURATION may not have a ROBOT PERIMETER greater than 110.0in (2.794m) and may not be more than 30in (76.2cm) tall.",
+   "violation": ""
+  },
+  {
+   "code": "R105",
+   "title": "ROBOT horizontal extension limit",
+   "section": "General ROBOT Design",
+   "statement": "ROBOTS may not extend more than 12in (30.48cm) beyond the vertical projection of their ROBOT PERIMETER.",
+   "violation": ""
+  },
+  {
+   "code": "R106",
+   "title": "Horizontal extension – one direction at a time",
+   "section": "General ROBOT Design",
+   "statement": "ROBOTS may not extend beyond their ROBOT PERIMETER in more than one direction (i.e. over more than 1 side of the ROBOT) at a time. The extension may not reach outside the projection of that side of the ROBOT PERIMETER. For the purposes of this rule, a round or circular section of FRAME PERIMETER is considered to have an infinite number of sides. MOMENTARY and inconsequential extensions in multiple directions are an exception to this rule.",
+   "violation": ""
+  },
+  {
+   "code": "R107",
+   "title": "ROBOT vertical extension limit",
+   "section": "General ROBOT Design",
+   "statement": "ROBOTS may not extend such that their total height exceeds 30.0in (76.2cm).",
+   "violation": ""
+  },
+  {
+   "code": "R108",
+   "title": "ROBOT extension floor interaction ROBOT extensions may not interact with the car",
+   "section": "General ROBOT Design",
+   "statement": "ROBOT extension floor interaction ROBOT extensions may not interact with the carpet, BUMPS, or TOWER BASE such that the BUMPERS are lifted out of the BUMPER ZONE (see R405).",
+   "violation": ""
+  },
+  {
+   "code": "R201",
+   "title": "No digging into carpet",
+   "section": "ROBOT Safety & Damage Prevention",
+   "statement": "Traction devices must not have surface features that could damage the ARENA (e.g. metal, sandpaper, inflexible studs, cleats, hook-loop fasteners or similar attachments). Traction devices include all parts of the ROBOT that are designed to transmit any propulsive and/or braking forces between the ROBOT and FIELD carpet.",
+   "violation": ""
+  },
+  {
+   "code": "R202",
+   "title": "No exposed sharp edges",
+   "section": "ROBOT Safety & Damage Prevention",
+   "statement": "Protrusions from the ROBOT and exposed surfaces on the ROBOT shall not pose hazards to the ARENA elements (including SCORING ELEMENTS) or people.",
+   "violation": ""
+  },
+  {
+   "code": "R203",
+   "title": "General safety",
+   "section": "ROBOT Safety & Damage Prevention",
+   "statement": "ROBOT parts shall not be made from hazardous materials, be unsafe, cause an unsafe condition, or interfere with the operation of other ROBOTS.",
+   "violation": ""
+  },
+  {
+   "code": "R204",
+   "title": "Leave SCORING ELEMENTS at the FIELD",
+   "section": "ROBOT Safety & Damage Prevention",
+   "statement": "ROBOTS must allow removal of SCORING ELEMENTS from the ROBOT and the ROBOT from FIELD elements while DISABLED and powered off.",
+   "violation": ""
+  },
+  {
+   "code": "R205",
+   "title": "Don’t contaminate the FIELD",
+   "section": "ROBOT Safety & Damage Prevention",
+   "statement": "Liquids, gels, greases and fine particles must not contaminate the FIELD or other ROBOTS.",
+   "violation": ""
+  },
+  {
+   "code": "R206",
+   "title": "Don’t damage SCORING ELEMENTS",
+   "section": "ROBOT Safety & Damage Prevention",
+   "statement": "ROBOT elements likely to come in contact with a SCORING ELEMENT shall not pose a significant hazard to the SCORING ELEMENT.",
+   "violation": ""
+  },
+  {
+   "code": "R301",
+   "title": "Individual item cost limit",
+   "section": "Budget Constraints & Fabrication Schedule",
+   "statement": "No individual, non-KOP item or software shall have a Fair Market Value (FMV) that exceeds $600 USD. The total cost of COMPONENTS purchased in bulk may exceed $600 USD as long as the cost of an individual COMPONENT does not exceed $600 USD.",
+   "violation": ""
+  },
+  {
+   "code": "R302",
+   "title": "MAJOR MECHANISM, from this year only",
+   "section": "Budget Constraints & Fabrication Schedule",
+   "statement": "MAJOR MECHANISMS, as defined in I101, created before Kickoff are not permitted.",
+   "violation": ""
+  },
+  {
+   "code": "R303",
+   "title": "Create new designs and software, unless they’re public",
+   "section": "Budget Constraints & Fabrication Schedule",
+   "statement": "ROBOT software and designs created before Kickoff are only permitted if the source files (complete information sufficient to produce the design) are available publicly prior to Kickoff.",
+   "violation": ""
+  },
+  {
+   "code": "R401",
+   "title": "BUMPERS almost all around",
+   "section": "BUMPER Rules",
+   "statement": "ROBOTS are required to use BUMPERS to protect the entire ROBOT PERIMETER. Gaps of less than 1.25in (3.17cm) between adjacent segments are permitted as long as all corners are filled per R406. A single gap larger than 1.25in (3.17cm) is permitted, as long as at least 5.0in (12.7cm) of ROBOT PERIMETER on each side of each corner is protected by BUMPER.",
+   "violation": ""
+  },
+  {
+   "code": "R402",
+   "title": "BUMPER construction",
+   "section": "BUMPER Rules",
+   "statement": "BUMPERS must consist of the following:",
+   "violation": ""
+  },
+  {
+   "code": "R403",
+   "title": "BUMPER extension limit",
+   "section": "BUMPER Rules",
+   "statement": "BUMPERS must not extend more than 4.0in (10.16cm) from the ROBOT PERIMETER.",
+   "violation": ""
+  },
+  {
+   "code": "R404",
+   "title": "BUMPERS must be soft",
+   "section": "BUMPER Rules",
+   "statement": "Hard parts of BUMPERS must not extend more than 1.25in (3.17cm) out from the ROBOT PERIMETER. Only padding (per R402-A), cover (per R402-C, including any coatings or markings), and soft fasteners used to secure padding or cover are permitted beyond this limit. Padding must extend at least 2.0in (5.08cm) beyond any hard parts of the BUMPER. There is no limit on how far BUMPER hard parts may extend inside the ROBOT FRAME PERIMETER.",
+   "violation": ""
+  },
+  {
+   "code": "R405",
+   "title": "BUMPERS interact with BUMPERS",
+   "section": "BUMPER Rules",
+   "statement": "While navigating the FIELD normally, all BUMPERS must have padding (per R402-A) supported by backing (per R402-B) entirely filling the BUMPER ZONE, a space between 2.5in (6.35cm) and 5.75in (14.61cm) from the floor.",
+   "violation": ""
+  },
+  {
+   "code": "R406",
+   "title": "Fill BUMPER corners",
+   "section": "BUMPER Rules",
+   "statement": "Corner joints between BUMPERS must be filled with uncompressed padding material extending at least 2.25in (5.72cm) from the corner with no gaps or voids. Examples of implementation are shown in Figure 810.",
+   "violation": ""
+  },
+  {
+   "code": "R407",
+   "title": "BUMPERS shouldn’t be wedges",
+   "section": "BUMPER Rules",
+   "statement": "BUMPERS must not act as wedges when interacting with other BUMPERS.",
+   "violation": ""
+  },
+  {
+   "code": "R408",
+   "title": "Weight limit with BUMPERS",
+   "section": "BUMPER Rules",
+   "statement": "The total weight of the ROBOT (as described in R103) with BUMPERS must not exceed 135.0lb (61.23kg)",
+   "violation": ""
+  },
+  {
+   "code": "R409",
+   "title": "BUMPERS should be passive",
+   "section": "BUMPER Rules",
+   "statement": "BUMPERS must be fixed relative to the ROBOT PERIMETER. BUMPERS may not contain any moving elements (beyond compression and flex of BUMPER materials) or electrical elements.",
+   "violation": ""
+  },
+  {
+   "code": "R410",
+   "title": "BUMPERS must come off",
+   "section": "BUMPER Rules",
+   "statement": "BUMPERS must be designed for installation and removal to facilitate inspection and weighing.",
+   "violation": ""
+  },
+  {
+   "code": "R411",
+   "title": "BUMPERS indicate your ALLIANCE",
+   "section": "BUMPER Rules",
+   "statement": "Each ROBOT must be able to display red or blue BUMPER covers to reflect their ALLIANCE color, as assigned in the MATCH schedule distributed at the event (as described in section 10.1 MATCH Schedules). Contrasting markings on outward, upward, or downward facing surfaces of the BUMPER cover, other than the following, are prohibited:",
+   "violation": ""
+  },
+  {
+   "code": "R412",
+   "title": "Team number on BUMPERS",
+   "section": "BUMPER Rules",
+   "statement": "Team numbers must be displayed and positioned on the BUMPER cover in at least 3 locations approximately 90 degrees apart such that an observer walking around the perimeter of the ROBOT can unambiguously tell the team’s number from most points of view, from as far as approximately 720.0in (18.29m). Team numbers must meet the following additional criteria:",
+   "violation": ""
+  },
+  {
+   "code": "R501",
+   "title": "Allowable motors",
+   "section": "Motors & Actuators",
+   "statement": "The only motors and actuators permitted include the following (in any quantity):",
+   "violation": ""
+  },
+  {
+   "code": "R502",
+   "title": "Only 4 propulsion motors",
+   "section": "Motors & Actuators",
+   "statement": "A ROBOT may not have more than 4 propulsion motors. A propulsion motor is a motor that enables the ROBOT to move around the FIELD surface. Motors that generate small amounts of thrust as a secondary or incidental feature are not considered propulsion motors.",
+   "violation": ""
+  },
+  {
+   "code": "R503",
+   "title": "Don’t modify motors (mostly)",
+   "section": "Motors & Actuators",
+   "statement": "The integral mechanical and electrical system of any motor must not be modified. Motors, servos, and electric solenoids used on the ROBOT shall not be modified in any way, except as follows:",
+   "violation": ""
+  },
+  {
+   "code": "R504",
+   "title": "Power (most) actuators off of approved devices",
+   "section": "Motors & Actuators",
+   "statement": "With the exception of servos, fans, or motors integral to sensors of COTS computing devices permitted in R501, each actuator must be controlled by a power regulating device. The only power regulating devices for actuators permitted on the ROBOT include:",
+   "violation": ""
+  },
+  {
+   "code": "R505",
+   "title": "Don’t overload controllers",
+   "section": "Motors & Actuators",
+   "statement": "Each power regulating device may control electrical loads per Table 82. Unless otherwise noted, each power regulating device shall control 1 and only 1 electrical load.",
+   "violation": ""
+  },
+  {
+   "code": "R506",
+   "title": "Control servos safely",
+   "section": "Motors & Actuators",
+   "statement": "Servos must be connected to, and only to, 1 of the following:",
+   "violation": ""
+  },
+  {
+   "code": "R601",
+   "title": "Battery limit – everyone has the same power",
+   "section": "Power Distribution",
+   "statement": "The only legal source of electrical energy for the ROBOT during the competition, the ROBOT battery, must be 1 and only 1 non-spillable sealed lead acid (SLA) battery with the following specifications:",
+   "violation": ""
+  },
+  {
+   "code": "R602",
+   "title": "Other batteries for cameras or computers only",
+   "section": "Power Distribution",
+   "statement": "COTS USB battery packs with a capacity of 100Wh or less (27000mAh at 3.7V) with 5V/5A max output or 12V/5A max output using USB-PD per port, batteries integral to and part of a COTS computing device or self-contained camera (e.g. laptop batteries, GoPro style camera, etc.), or batteries used to power CMOS/RTC features may be used to power COTS computing devices and any peripheral COTS input or output devices connected to the COTS computing device provided they are:",
+   "violation": ""
+  },
+  {
+   "code": "R603",
+   "title": "Charge batteries with safe connectors",
+   "section": "Power Distribution",
+   "statement": "Any battery charger used to charge a ROBOT battery must have the corresponding Anderson SB connector installed.",
+   "violation": ""
+  },
+  {
+   "code": "R604",
+   "title": "Charge batteries at a safe rate",
+   "section": "Power Distribution",
+   "statement": "Any battery charger used to charge a ROBOT battery may not be used such that it exceeds 6-Amp average charge current.",
+   "violation": ""
+  },
+  {
+   "code": "R605",
+   "title": "Batteries are not ballast",
+   "section": "Power Distribution",
+   "statement": "No batteries other than those allowed per R601 and R602 are allowed on the ROBOT, whether or not they are being used to supply power.",
+   "violation": ""
+  },
+  {
+   "code": "R606",
+   "title": "Secure the battery",
+   "section": "Power Distribution",
+   "statement": "The ROBOT battery must be secured such that it will not dislodge during vigorous ROBOT interaction including if the ROBOT is turned over or placed in any arbitrary orientation.",
+   "violation": ""
+  },
+  {
+   "code": "R607",
+   "title": "Insulate battery connections",
+   "section": "Power Distribution",
+   "statement": "Each electrical terminal on the ROBOT battery, main breaker, and their connections (lugs, stripped wire ends, etc.) to the wire must be fully insulated at all times.",
+   "violation": ""
+  },
+  {
+   "code": "R608",
+   "title": "Limit non-battery energy",
+   "section": "Power Distribution",
+   "statement": "Non-electrical sources of energy used by the ROBOT (i.e., stored at the start of a MATCH) shall come only from the following sources:",
+   "violation": ""
+  },
+  {
+   "code": "R609",
+   "title": "Connect main power safely",
+   "section": "Power Distribution",
+   "statement": "The following devices shall be connected with 6 AWG (7 SWG or 16 mm2) copper wire or larger as shown in Figure 811:",
+   "violation": ""
+  },
+  {
+   "code": "R610",
+   "title": "1 breaker/fuse per circuit",
+   "section": "Power Distribution",
+   "statement": "All circuits, with the exceptions of those listed in R615 and R617, must connect to, and have power sourced solely by, a single protected connector pair of the PD. Circuits must not connect to the main power input of the PD.",
+   "violation": ""
+  },
+  {
+   "code": "R611",
+   "title": "The ROBOT frame is not a wire",
+   "section": "Power Distribution",
+   "statement": "All wiring and electrical devices shall be electrically isolated from the ROBOT frame. The ROBOT frame must not be used to carry electrical current.",
+   "violation": ""
+  },
+  {
+   "code": "R612",
+   "title": "Must be able to turn ROBOT on and off safely",
+   "section": "Power Distribution",
+   "statement": "The 120A circuit breaker must be quickly and safely accessible from the exterior of the ROBOT. This is the only 120A circuit breaker allowed on the ROBOT.",
+   "violation": ""
+  },
+  {
+   "code": "R613",
+   "title": "Electrical system must be inspectable",
+   "section": "Power Distribution",
+   "statement": "The PD, associated wiring, and all circuit breakers must be visible for inspection.",
+   "violation": ""
+  },
+  {
+   "code": "R614",
+   "title": "No high voltage allowed",
+   "section": "Power Distribution",
+   "statement": "Any active electrical item that is not an actuator (specified in R501) or core control system item (specified in R710) is considered a CUSTOM CIRCUIT. CUSTOM CIRCUITS shall not produce measurable voltages exceeding 24V with the exception of COTS Power-over-Ethernet (PoE) injector devices used with COTS Ethernet cables and COTS receiving devices (i.e. not a breakout or adapter).",
+   "violation": ""
+  },
+  {
+   "code": "R615",
+   "title": "Power roboRIO as specified",
+   "section": "Power Distribution",
+   "statement": "The roboRIO power input must be connected directly to a non-switched pair of protected output terminals of a PD with a 10A fuse or circuit breaker installed.",
+   "violation": ""
+  },
+  {
+   "code": "R616",
+   "title": "Power radio as specified – Part 1",
+   "section": "Power Distribution",
+   "statement": "The wireless bridge (radio) power must be connected based on the radio type:",
+   "violation": ""
+  },
+  {
+   "code": "R617",
+   "title": "Power radio as specified – Part 2",
+   "section": "Power Distribution",
+   "statement": "The device supplying power to the wireless bridge per R616 must be connected directly to a non-switched pair of protected output terminals of a PD with a 10A fuse or circuit breaker installed with the exception of the PDP 1.0 shared VRM/PCM pairs which may be protected with a 20A fuse or circuit breaker.",
+   "violation": ""
+  },
+  {
+   "code": "R618",
+   "title": "Use PD terminals as designed",
+   "section": "Power Distribution",
+   "statement": "Only 1 wire shall be connected to each terminal on the PD.",
+   "violation": ""
+  },
+  {
+   "code": "R619",
+   "title": "Only use specified circuit breakers in a PD",
+   "section": "Power Distribution",
+   "statement": "The only circuit breakers permitted for use in the PD are:",
+   "violation": ""
+  },
+  {
+   "code": "R620",
+   "title": "Only use specified fuses in PD",
+   "section": "Power Distribution",
+   "statement": "The only fuses permitted for use in the PD are automotive blade fuses with the following values:",
+   "violation": ""
+  },
+  {
+   "code": "R621",
+   "title": "Protect circuits with appropriate circuit breakers",
+   "section": "Power Distribution",
+   "statement": "Each branch circuit must be protected by 1 and only 1 circuit breaker or fuse on the PD per Table 83. No other electrical load can be connected to the breaker or fuse supplying this circuit with the exception of devices downstream of a permitted motor power adapter board placed between the PD and a motor controller (WCP-1380, RF-4003, RF-4004, RF-4005).",
+   "violation": ""
+  },
+  {
+   "code": "R622",
+   "title": "Use appropriately sized wire",
+   "section": "Power Distribution",
+   "statement": "All circuits shall be wired with appropriately sized insulated copper wire (SIGNAL LEVEL cables don’t have to be copper):",
+   "violation": ""
+  },
+  {
+   "code": "R623",
+   "title": "Use only appropriate connectors",
+   "section": "Power Distribution",
+   "statement": "Branch circuits may include intermediate elements such as COTS connectors, splices, COTS flexible/rolling/sliding contacts, and COTS slip rings, as long as the entire electrical pathway is via appropriately gauged/rated elements.",
+   "violation": ""
+  },
+  {
+   "code": "R624",
+   "title": "Use specified wire colors (mostly)",
+   "section": "Power Distribution",
+   "statement": "All non-SIGNAL LEVEL wiring with a constant polarity (i.e., except for outputs of relay modules, motor controllers, or sensors) shall be color-coded along their entire length from the manufacturer as follows:",
+   "violation": ""
+  },
+  {
+   "code": "R625",
+   "title": "Don’t modify critical power paths",
+   "section": "Power Distribution",
+   "statement": "CUSTOM CIRCUITS shall not directly alter the power pathways between the ROBOT battery, PD, motor controllers, relays (per R504-B), motors and actuators (per R501), pneumatic solenoid valves, or other elements of the ROBOT control system (items explicitly mentioned in R710). Custom high impedance voltage monitoring or low impedance current monitoring circuitry connected to the ROBOT’S electrical system is acceptable, if the effect on the ROBOT outputs is inconsequential.",
+   "violation": ""
+  },
+  {
+   "code": "R626",
+   "title": "VH-109 PoE passthrough",
+   "section": "Power Distribution",
+   "statement": "The VH-109 PoE output may be used only under the following conditions:",
+   "violation": ""
+  },
+  {
+   "code": "R701",
+   "title": "Control the ROBOT with a roboRIO",
+   "section": "Control, Command & Signals System",
+   "statement": "ROBOTS must be controlled via 1 programmable NI roboRIO or roboRIO 2.0 (P/N am3000 or am3000a, both versions referred to throughout this manual as “roboRIO”), with image version 2026_v1.2 or later.",
+   "violation": ""
+  },
+  {
+   "code": "R702",
+   "title": "Communicate with the ROBOT with the specified radio",
+   "section": "Control, Command & Signals System",
+   "statement": "1 Vivid Hosting wireless bridge (P/N: VH-109, WCP-1538), that has been configured with the appropriate encryption key for your team number at each event, is the only permitted device for communicating to and from the ROBOT during the MATCH. Events held in China are the exceptions to this rule and must use an OpenMesh (P/N: OM5P-AN or OM5P-AC) radio.",
+   "violation": ""
+  },
+  {
+   "code": "R703",
+   "title": "Use specific Ethernet port for roboRIO",
+   "section": "Control, Command & Signals System",
+   "statement": "The roboRIO Ethernet port must be connected as specified:",
+   "violation": ""
+  },
+  {
+   "code": "R704",
+   "title": "Only use allowed ports and bandwidth to communicate with the ROBOT",
+   "section": "Control, Command & Signals System",
+   "statement": "Communication between the ROBOT and the OPERATOR CONSOLE may not exceed the following and is restricted to network ports listed in Table 85:",
+   "violation": ""
+  },
+  {
+   "code": "R705",
+   "title": "Configure devices for your team number",
+   "section": "Control, Command & Signals System",
+   "statement": "The roboRIO, Driver Station Software, and wireless bridge must be configured to correspond to the correct team number, per the procedures defined in the FIRST Robotics Competition Control System documentation.",
+   "violation": ""
+  },
+  {
+   "code": "R706",
+   "title": "Don’t bypass the ARENA network",
+   "section": "Control, Command & Signals System",
+   "statement": "All signals must originate from the OPERATOR CONSOLE and be transmitted to the ROBOT via the ARENA Ethernet network.",
+   "violation": ""
+  },
+  {
+   "code": "R707",
+   "title": "Limited wireless allowed",
+   "section": "Control, Command & Signals System",
+   "statement": "The only forms of wireless communication that may be used to communicate to, from, or within the ROBOT, include:",
+   "violation": ""
+  },
+  {
+   "code": "R708",
+   "title": "Wireless bridge must be visible",
+   "section": "Control, Command & Signals System",
+   "statement": "The wireless bridge must be mounted on the ROBOT such that the diagnostic lights are visible to FIELD STAFF.",
+   "violation": ""
+  },
+  {
+   "code": "R709",
+   "title": "ROBOTS must have a signal light",
+   "section": "Control, Command & Signals System",
+   "statement": "ROBOTS must use at least 1, but no more than 2, diagnostic ROBOT Signal Light (RSL) (P/N 855PB-B12ME522 and/or am-3583).",
+   "violation": ""
+  },
+  {
+   "code": "R710",
+   "title": "Only specified modifications to control system devices permitted",
+   "section": "Control, Command & Signals System",
+   "statement": "The Driver Station Software, roboRIO, PD, PCM(s)/PH(s), VRM(s)/RPM(s), RSL, 120A breaker, motor controllers, MXP devices used to control actuators per R713-C, relay modules (per R504-B), wireless bridge, PD breakers and fuses, Servo Power Module, Servo Hub, motor power adapter boards, and batteries shall not be tampered with, modified, or adjusted in any way (tampering includes drilling, cutting, machining, rewiring, disassembling, painting, etc.), with the following exceptions:",
+   "violation": ""
+  },
+  {
+   "code": "R711",
+   "title": "Don’t connect motor outputs to roboRIO",
+   "section": "Control, Command & Signals System",
+   "statement": "Neither 12VDC power nor relay module or motor controller outputs shall be directly connected to the roboRIO, with the exception of the designated 12VDC input.",
+   "violation": ""
+  },
+  {
+   "code": "R712",
+   "title": "Control PWM controllers from the roboRIO",
+   "section": "Control, Command & Signals System",
+   "statement": "Every relay module (per R504-B), servo, Servo Power Module, and PWM motor controller shall be connected to a corresponding port (relays to Relay ports, servos, and PWM controllers to PWM ports) on the roboRIO (either directly or through a WCP Spartan Sensor Board) or via a legal MXP connection (per R713). They shall not be controlled by signals from any other source.",
+   "violation": ""
+  },
+  {
+   "code": "R713",
+   "title": "Only approved MXP devices can control actuators",
+   "section": "Control, Command & Signals System",
+   "statement": "If a motor is controlled via the MXP, its power regulating device must be connected by 1 of the following methods:",
+   "violation": ""
+  },
+  {
+   "code": "R714",
+   "title": "Control CAN motor controllers from the roboRIO",
+   "section": "Control, Command & Signals System",
+   "statement": "Each CAN motor controller must be controlled with enable/disable inputs sourced from the roboRIO and passed via either a PWM (wired per R713) or CAN bus (either directly or daisy-chained via another CAN bus device) signal, but both shall not be wired simultaneously on the same device.",
+   "violation": ""
+  },
+  {
+   "code": "R715",
+   "title": "Control PCM, PH, and Servo Hub from roboRIO",
+   "section": "Control, Command & Signals System",
+   "statement": "Each Pneumatic Control Module (PCM), Pneumatic Hub (PH), and Servo Hub must be controlled with signal inputs sourced from the roboRIO and passed via a CAN bus connection from the built-in CAN on the roboRIO (either directly or daisy-chained via another CAN bus device).",
+   "violation": ""
+  },
+  {
+   "code": "R716",
+   "title": "Don’t alter the CAN bus",
+   "section": "Control, Command & Signals System",
+   "statement": "No device that interferes with, alters, or blocks communications among the roboRIO and the PCMs/PHs, and/or CAN motor controllers on the bus will be permitted.",
+   "violation": ""
+  },
+  {
+   "code": "R717",
+   "title": "USB to CAN adapter permitted",
+   "section": "Control, Command & Signals System",
+   "statement": "Additional CAN bus connections may be added to the roboRIO using the CTR Electronics CANivoreTM (P/N 21-678682, WCP-1522) USB-to-CAN adapter.",
+   "violation": ""
+  },
+  {
+   "code": "R801",
+   "title": "Only use explicitly permitted pneumatic parts",
+   "section": "Pneumatic System",
+   "statement": "To satisfy multiple constraints associated with safety, consistency, inspection, and constructive innovation, no pneumatic parts other than those explicitly permitted in this section shall be used on the ROBOT.",
+   "violation": ""
+  },
+  {
+   "code": "R802",
+   "title": "No custom pneumatics and meet minimum pressure ratings",
+   "section": "Pneumatic System",
+   "statement": "All pneumatic items must be COTS pneumatic devices and either:",
+   "violation": ""
+  },
+  {
+   "code": "R803",
+   "title": "Don’t modify pneumatics",
+   "section": "Pneumatic System",
+   "statement": "All pneumatic COMPONENTS must be used in their original, unaltered condition. Exceptions are as follows:",
+   "violation": ""
+  },
+  {
+   "code": "R804",
+   "title": "Only use specific pneumatic devices",
+   "section": "Pneumatic System",
+   "statement": "The only pneumatic system items permitted on ROBOTS include the following items:",
+   "violation": ""
+  },
+  {
+   "code": "R805",
+   "title": "If using pneumatics, these parts are required",
+   "section": "Pneumatic System",
+   "statement": "If pneumatic COMPONENTS are used, the following items are required as part of the pneumatic circuit and must be used in accordance with this section, as illustrated in Figure 814.",
+   "violation": ""
+  },
+  {
+   "code": "R806",
+   "title": "Compressed air from ROBOT compressor only",
+   "section": "Pneumatic System",
+   "statement": "Throughout an event, compressed air on the ROBOT must be provided by its 1 onboard compressor only. Compressor specifications must not exceed nominal 1.1cfm (519.1cm3/s) flow rate @ 12VDC at any pressure.",
+   "violation": ""
+  },
+  {
+   "code": "R807",
+   "title": "Air storage pressure limit",
+   "section": "Pneumatic System",
+   "statement": "Stored air pressure on the ROBOT must be no greater than 120.0psi (~827 kPa, 8.2 Bar). No stored air pressure intended for the ROBOT may be located off-board the ROBOT.",
+   "violation": ""
+  },
+  {
+   "code": "R808",
+   "title": "Working air pressure limit",
+   "section": "Pneumatic System",
+   "statement": "Working air pressure (air pressure used to actuate devices) on the ROBOT must be no greater than 60.0psi (413.7kPa, 4.137Bar) and must be provided through a single primary adjustable, relieving, pressure regulator. Additional regulators may be located downstream of the single primary regulator.",
+   "violation": ""
+  },
+  {
+   "code": "R809",
+   "title": "Limited devices at high pressure",
+   "section": "Pneumatic System",
+   "statement": "Only the compressor, relief valve, pressure switch, pressure vent plug, pressure gauge, storage tanks, tubing, pressure transducers, filters, and connecting fittings may be in the high-pressure pneumatic circuit upstream from the regulator.",
+   "violation": ""
+  },
+  {
+   "code": "R810",
+   "title": "Pressure gauges must be visible",
+   "section": "Pneumatic System",
+   "statement": "Pressure gauges must be placed in easily visible locations upstream and downstream of the regulator to display the stored and working pressures, respectively. Pressure gauges must show pressure in psi, kPa, or Bar.",
+   "violation": ""
+  },
+  {
+   "code": "R811",
+   "title": "Relief valve requirements",
+   "section": "Pneumatic System",
+   "statement": "The relief valve must be attached directly to the compressor or attached by legal hard fittings (e.g. brass, nylon, etc.) connected to the compressor output port.",
+   "violation": ""
+  },
+  {
+   "code": "R812",
+   "title": "Pressure switch requirements",
+   "section": "Pneumatic System",
+   "statement": "The pressure switch must be connected to the high-pressure side of the pneumatic circuit (i.e. prior to the pressure regulator) to sense the stored pressure of the circuit.",
+   "violation": ""
+  },
+  {
+   "code": "R813",
+   "title": "Vent plug requirements",
+   "section": "Pneumatic System",
+   "statement": "Any pressure vent plug must be:",
+   "violation": ""
+  },
+  {
+   "code": "R814",
+   "title": "Don’t connect solenoid outputs together",
+   "section": "Pneumatic System",
+   "statement": "The output air from multiple solenoid valves must not be combined.",
+   "violation": ""
+  },
+  {
+   "code": "R901",
+   "title": "Use the specified Driver Station Software",
+   "section": "OPERATOR CONSOLE",
+   "statement": "The Driver Station Software provided by National Instruments (install instructions found here) is the only application permitted to specify and communicate the operating mode (i.e. AUTO/TELEOP) and operating state (Enable/Disable) to the ROBOT. The Driver Station Software must be version 26.0 or newer.",
+   "violation": ""
+  },
+  {
+   "code": "R902",
+   "title": "The OPERATOR CONSOLE must have a visible display",
+   "section": "OPERATOR CONSOLE",
+   "statement": "The OPERATOR CONSOLE, the set of COMPONENTS and MECHANISMS used by the DRIVERS and/or HUMAN PLAYERS to relay commands to the ROBOT, must include a graphic display to present the Driver Station Software diagnostic information. It must be positioned within the OPERATOR CONSOLE so that the screen display can be clearly seen during inspection and in a MATCH.",
+   "violation": ""
+  },
+  {
+   "code": "R903",
+   "title": "Connect FMS Ethernet directly to the OPERATOR CONSOLE",
+   "section": "OPERATOR CONSOLE",
+   "statement": "Devices hosting the Driver Station Software must only interface with the FMS via the Ethernet cable provided at the DRIVER STATION (e.g. not through a switch). Teams may connect the FMS Ethernet cable to the device running the Driver Station Software directly via an Ethernet pigtail, or with a single-port Ethernet converter (e.g. docking station, USB-Ethernet converter, Thunderbolt-Ethernet converter, etc.). The Ethernet port on the OPERATOR CONSOLE must be easily and quickly accessible.",
+   "violation": ""
+  },
+  {
+   "code": "R904",
+   "title": "OPERATOR CONSOLE physical requirements",
+   "section": "OPERATOR CONSOLE",
+   "statement": "The OPERATOR CONSOLE must not",
+   "violation": ""
+  },
+  {
+   "code": "R905",
+   "title": "FIELD wireless only",
+   "section": "OPERATOR CONSOLE",
+   "statement": "Other than the system provided by the FIELD, no other form of wireless communications shall be used to communicate to, from, or within the OPERATOR CONSOLE.",
+   "violation": ""
+  },
+  {
+   "code": "R906",
+   "title": "No unsafe OPERATOR CONSOLES",
+   "section": "OPERATOR CONSOLE",
+   "statement": "OPERATOR CONSOLES shall not be made using hazardous materials, be unsafe, cause an unsafe condition, or interfere with other DRIVE TEAMS or the operation of other ROBOTS.",
+   "violation": ""
+  },
+  {
+   "code": "R907",
+   "title": "No AC inverters",
+   "section": "OPERATOR CONSOLE",
+   "statement": "OPERATOR CONSOLES must not contain AC inverters.",
+   "violation": ""
+  },
+  {
+   "code": "I101",
+   "title": "It’s your team’s ROBOT",
+   "section": "Rules",
+   "statement": "The ROBOT and its MAJOR MECHANISMS must be built by the FIRST Robotics Competition team.",
+   "violation": ""
+  },
+  {
+   "code": "I102",
+   "title": "Get inspected before playing a Qualification MATCH",
+   "section": "Rules",
+   "statement": "A team is only permitted to participate in a Qualification or Playoff MATCH and receive Ranking or MATCH Points if their ROBOT has passed an initial, complete inspection.",
+   "violation": "If prior to the start of the MATCH, the team is DISQUALIFIED and not eligible to participate in the MATCH. If after the MATCH, the team receives a RED CARD and the MATCH may be replayed per T201."
+  },
+  {
+   "code": "I103",
+   "title": "Bring it all to inspection",
+   "section": "Rules",
+   "statement": "At the time of inspection, the OPERATOR CONSOLE and the ROBOT must be presented with all MECHANISMS (including all COMPONENTS of each MECHANISM), configurations, and decorations that will be used on the ROBOT in MATCHES without re-inspection (per I104) and may not exceed 150.0lb (68.04kg) (note that while up to 150.0lb (68.04kg) of ROBOT MECHANISMS may be inspected together, the ROBOT configuration used in a MATCH may not violate R103). The OPERATOR CONSOLE and exceptions listed in R103 are not included in this weight.",
+   "violation": ""
+  },
+  {
+   "code": "I104",
+   "title": "Unless the change is listed below, any change to a ROBOT must get re-inspected",
+   "section": "Rules",
+   "statement": "A ROBOT may play MATCHES with a subset of the MECHANISMS that were present during inspection provided the reconfigured ROBOT still complies with all ROBOT Construction Rules. Only MECHANISMS that were present during the inspection may be added, removed, or reconfigured between MATCHES without re-inspection per this rule. If a ROBOT is modified after its most recent passed inspection, it must be re-inspected before it is eligible to participate in a MATCH.",
+   "violation": ""
+  },
+  {
+   "code": "I105",
+   "title": "Don’t exploit re-inspection",
+   "section": "Rules",
+   "statement": "Teams may not use the re-inspection process in I104 to circumvent the weight limit in I103.",
+   "violation": ""
+  },
+  {
+   "code": "I106",
+   "title": "ROBOTS are off for inspection (mostly)",
+   "section": "Rules",
+   "statement": "For the safety of all those involved, ROBOTS must be presented for inspection with the ROBOT powered off, pneumatics unpressurized, and springs or other stored energy devices in their lowest potential energy states (e.g. battery removed).",
+   "violation": ""
+  },
+  {
+   "code": "I107",
+   "title": "No STUDENT, no inspection",
+   "section": "Rules",
+   "statement": "At least 1 STUDENT team member must accompany the ROBOT for any inspection efforts.",
+   "violation": ""
+  },
+  {
+   "code": "T201",
+   "title": "Replays will be the same",
+   "section": "MATCH Replays",
+   "statement": "All reasonable effort is made to create the same conditions when replaying a MATCH caused by an ARENA FAULT or FIELD damage. This means, for example, that a team that was BYPASSED prior to the start of the MATCH which is to be replayed is BYPASSED for the replay MATCH. ROBOT and DRIVE TEAM starting locations do not need to be replicated when replaying a MATCH.",
+   "violation": "MATCH with not start until the situation is corrected"
+  },
+  {
+   "code": "T301",
+   "title": "Measurement, not practice",
+   "section": "Measurement",
+   "statement": "During the period when the ARENA is open for measurement:",
+   "violation": "VERBAL WARNING, plus YELLOW CARD if subsequent violations at any point during the event or egregious."
+  },
+  {
+   "code": "T601",
+   "title": "Send your STUDENT representatives",
+   "section": "ALLIANCE Selection Process",
+   "statement": "Each team must choose and send a minimum of one and a maximum of three STUDENT team representatives. Representative(s) must report to the ARENA before the start of ALLIANCE Selection.",
+   "violation": "Team is ineligible for the Playoff Tournament if they are not represented by the time they are announced."
+  },
+  {
+   "code": "T602",
+   "title": "STUDENTS must outnumber adults",
+   "section": "ALLIANCE Selection Process",
+   "statement": "A non-STUDENT may additionally be a representative from a team if the team has exactly two STUDENT representatives.",
+   "violation": "Non-STUDENT must leave the ARENA"
+  },
+  {
+   "code": "T603",
+   "title": "Only STUDENTS may use the mic",
+   "section": "ALLIANCE Selection Process",
+   "statement": "Only a single STUDENT from the invited team is allowed to accept/decline.",
+   "violation": "The team is assumed to have declined."
+  },
+  {
+   "code": "T604",
+   "title": "Only the ALLIANCE CAPTAIN may invite an ALLIANCE",
+   "section": "ALLIANCE Selection Process",
+   "statement": "The ALLIANCE CAPTAIN is the only representative of the ALLIANCE who may approach the emcee and make a valid pick via the microphone.",
+   "violation": "Pick does not count, and pick timer continues to count down."
+  },
+  {
+   "code": "T605",
+   "title": "Picks are time limited",
+   "section": "ALLIANCE Selection Process",
+   "statement": "Once the emcee requests an ALLIANCE’S selection, the ALLIANCE is considered “on the clock” and the pick timer begins to countdown. In round 1, the timer begins at 45 seconds (0:45), in round 2 the timer begins at 1 minute and 30 seconds (1:30). A sound will play to indicate that there are 5 seconds left on the timer and a buzzer will go off to indicate the end of the time. The ALLIANCE CAPTAIN must make a good faith effort, as determined by the FTA or their designee, to state a valid team selection before the expiration of the pick timer.",
+   "violation": "The ALLIANCE is skipped, and the emcee moves to the next ALLIANCE, unless the selection is the last of a round in which case the ALLIANCE receives the next highest-ranked unselected team to the ALLIANCE."
+  },
+  {
+   "code": "T606",
+   "title": "Declining teams can’t be picked",
+   "section": "ALLIANCE Selection Process",
+   "statement": "An ALLIANCE CAPTAIN may not invite a team that has declined another ALLIANCE’S invitation to participate in the Playoff tournament. Declining teams are ineligible to be a BACKUP TEAM.",
+   "violation": "The ALLIANCE CAPTAIN must make another selection and pick timer continues to count down."
+  },
+  {
+   "code": "T607",
+   "title": "No BACKUP TEAMS for 1st MATCH",
+   "section": "BACKUP TEAM Coupons",
+   "statement": "An ALLIANCE may not request a BACKUP TEAM until after their first Playoff MATCH.",
+   "violation": "The request is denied."
+  },
+  {
+   "code": "T608",
+   "title": "BACKUP TEAMS due 2 minutes before the MATCH start time",
+   "section": "BACKUP TEAM Coupons",
+   "statement": "The BACKUP TEAM Coupon must be submitted to the Head REFEREE (or their designee) by the ALLIANCE CAPTIAN not later than 2 minutes before the expected MATCH start time in which the BACKUP TEAM is to play.",
+   "violation": "The request is denied"
+  },
+  {
+   "code": "T609",
+   "title": "Be there to be a BACKUP TEAM",
+   "section": "BACKUP POOL",
+   "statement": "A team must be present after ALLIANCE Selection to accept the lead queuer’s (or their designee) invitation to join the BACKUP POOL.",
+   "violation": "Team is ineligible to be a BACKUP TEAM."
+  },
+  {
+   "code": "T610",
+   "title": "Send a BACKUP TEAM Representative",
+   "section": "BACKUP POOL",
+   "statement": "The top 2 ranked BACKUP TEAMS must send at least 1 STUDENT representative (and optionally 1 additional STUDENT or mentor) to a designated area near the FIELD for the duration of the Playoff MATCHES.",
+   "violation": "VERBAL WARNING, plus the team is removed from BACKUP POOL if the situation cannot be corrected within a reasonable amount of time."
+  },
+  {
+   "code": "T611",
+   "title": "LINEUPS due 2 minutes before the MATCH",
+   "section": "Default LINEUP",
+   "statement": "The ALLIANCE CAPTAIN must submit their LINEUP in writing to the Head REFEREE (or their designee) 2 minutes before their expected MATCH start time.",
+   "violation": "Late LINEUPS are denied, and the ALLIANCE’S most recent LINEUP is applied."
+  },
+  {
+   "code": "T612",
+   "title": "For replays, no changing LINEUPS (mostly)",
+   "section": "Default LINEUP",
+   "statement": "If a MATCH must be replayed due to an ARENA FAULT, the LINEUP for the replayed MATCH is the same as the original MATCH. The sole exception is if, in the opinion of the Head REFEREE, the ARENA FAULT rendered a ROBOT inoperable, in which case the LINEUP can be changed.",
+   "violation": "The new LINEUP is denied."
+  },
+  {
+   "code": "C701",
+   "title": "Wear your buttons",
+   "section": "FIRST Championship Pit Crews",
+   "statement": "Only team members wearing proper buttons are allowed on the ARENA floor during division and Playoff MATCHES.",
+   "violation": "MATCH won’t start until the situation is corrected. Those not displaying identification must leave the ARENA."
+  },
+  {
+   "code": "E101",
+   "title": "Personal safety comes first",
+   "section": "General Rules",
+   "statement": "All team members must observe the following safety practices throughout the event:",
+   "violation": ""
+  },
+  {
+   "code": "E102",
+   "title": "Be nice",
+   "section": "General Rules",
+   "statement": "All participants must be gracious and professional at all times while attending FIRST Robotics Competition events. Uncivil behavior toward any participants is not tolerated.",
+   "violation": ""
+  },
+  {
+   "code": "E103",
+   "title": "Children with adults, please",
+   "section": "General Rules",
+   "statement": "Children under 12 must be accompanied in the pits by an adult at all times.",
+   "violation": ""
+  },
+  {
+   "code": "E104",
+   "title": "Respect the venue",
+   "section": "General Rules",
+   "statement": "Teams may not damage the venue, including but not limited to bleachers, floors, walls, railings, etc., in any way.",
+   "violation": ""
+  },
+  {
+   "code": "E105",
+   "title": "Teams must check in",
+   "section": "General Rules",
+   "statement": "An adult team member must check in at the Pit Administration station no later than 90 minutes before Qualification MATCHES are scheduled to start.",
+   "violation": "Teams will be contacted in their pit. Failure to Check-In may result in a team not participating in the event."
+  },
+  {
+   "code": "E106",
+   "title": "Some event resources for event teams only",
+   "section": "General Rules",
+   "statement": "Only teams registered for an event may use that event’s Competition FIELD, Practice Areas, Spare Parts, Machine Shop, and Inspection. Host teams supplying TEST/PRACTICE AREA elements and/or Machine Shop resources may use them, however teams registered for that event must be granted priority.",
+   "violation": ""
+  },
+  {
+   "code": "E107",
+   "title": "Work in designated areas only",
+   "section": "General Rules",
+   "statement": "At the event venue, teams may only produce FABRICATED ITEMS as follows:",
+   "violation": ""
+  },
+  {
+   "code": "E108",
+   "title": "Some things don’t belong at events",
+   "section": "General Rules",
+   "statement": "Do not bring or use the following:",
+   "violation": ""
+  },
+  {
+   "code": "E109",
+   "title": "Don’t arrange for additional utilities",
+   "section": "General Rules",
+   "statement": "Do not arrange for power, internet access, or phone lines from venue service providers or attempt to use venue internet connections reserved for event purposes (e.g. the FIELD Management System or web casting).",
+   "violation": ""
+  },
+  {
+   "code": "E110",
+   "title": "Don’t sell stuff",
+   "section": "General Rules",
+   "statement": "Teams may not conduct sales at an event. This includes, but is not limited to, raffle tickets, food, hats, shirts, candy, water, soft drinks, fruit, or any promotional products.",
+   "violation": ""
+  },
+  {
+   "code": "E111",
+   "title": "Don’t give out food",
+   "section": "General Rules",
+   "statement": "Teams may not distribute food to others at an event.",
+   "violation": ""
+  },
+  {
+   "code": "E112",
+   "title": "Make FIRST loud, but with restrictions",
+   "section": "General Rules",
+   "statement": "Do not invite or bring live bands to play in the audience. Do not play loud music.",
+   "violation": ""
+  },
+  {
+   "code": "E113",
+   "title": "Hang banners with care",
+   "section": "General Rules",
+   "statement": "Be respectful when hanging your banners.",
+   "violation": ""
+  },
+  {
+   "code": "E114",
+   "title": "Limit flag and flagpole size",
+   "section": "General Rules",
+   "statement": "Flags and flagpoles may not be of unreasonable size and weight.",
+   "violation": ""
+  },
+  {
+   "code": "E115",
+   "title": "No firearms",
+   "section": "General Rules",
+   "statement": "Firearms are prohibited at all FIRST events for all FIRST programs, including without limitation, all official FIRST Events posted here. This policy does not apply to law enforcement or venue security personnel.",
+   "violation": ""
+  },
+  {
+   "code": "E116",
+   "title": "Only COTS batteries allowed",
+   "section": "General Rules",
+   "statement": "Teams may only bring COTS batteries to events. Output wires or connectors may be modified as long as no safety systems are compromised.",
+   "violation": "Teams will be asked to remove or not bring in the batteries."
+  },
+  {
+   "code": "E117",
+   "title": "Do not record anyone at the event without their consent",
+   "section": "General Rules",
+   "statement": "Do not record interactions with anyone at an event, without the person’s consent. FIRST event staff and volunteers are empowered to excuse themselves from an interaction in which they are being recorded after declining consent.",
+   "violation": ""
+  },
+  {
+   "code": "E118",
+   "title": "Enter only 1 ROBOT",
+   "section": "General Rules",
+   "statement": "Each registered FIRST Robotics Competition team may enter only 1 ROBOT (or “robot,” a ROBOT-like assembly equipped with most of its drive base, i.e. its MAJOR MECHANISM that enables it to move around a FIELD) into a 2026 FIRST Robotics Competition Event.",
+   "violation": ""
+  },
+  {
+   "code": "E201",
+   "title": "The ROBOT goes alone to off-site machine shops",
+   "section": "Machine Shops",
+   "statement": "Team members may not travel to off-site machine shops with the ROBOT being transported by volunteers.",
+   "violation": ""
+  },
+  {
+   "code": "E301",
+   "title": "No wireless communication",
+   "section": "Wireless Rules",
+   "statement": "Teams may not set up their own 802.11a/b/g/n/ac/ax/be wireless communication (e.g. access points or ad-hoc networks) in the venue.",
+   "violation": ""
+  },
+  {
+   "code": "E302",
+   "title": "Don’t interfere with wireless networks",
+   "section": "Wireless Rules",
+   "statement": "Participants may not interfere, attempt to interfere, or attempt to connect with any other team or FIRST wireless communication except as expressly allowed for purposes of communicating with their team’s ROBOT on the FIELD or TEST/PRACTICE AREA.",
+   "violation": "Subsequent violations may lead to dismissal from event and/or legal action based on applicable laws."
+  },
+  {
+   "code": "E303",
+   "title": "Tethered operation outside FIELDS/PRACTICE AREAS",
+   "section": "Wireless Rules",
+   "statement": "ROBOTS may only be operated by tether when outside the FIELD or PRACTICE AREA.",
+   "violation": ""
+  },
+  {
+   "code": "E401",
+   "title": "Load in during Load-In",
+   "section": "Load-In",
+   "statement": "Teams must load in the ROBOT and all ROBOT elements into the event by the end of the last designated Load-In period on the Public Schedule. Exceptions are as follows:",
+   "violation": "Item will not be permitted into venue."
+  },
+  {
+   "code": "E402",
+   "title": "Load-In person limit is 6",
+   "section": "Load-In",
+   "statement": "Only 6 team members (one of which must be an adult) may be in the pit area during any Load-In period prior to pits opening.",
+   "violation": "Extra team members must leave the venue."
+  },
+  {
+   "code": "E403",
+   "title": "Load-In Restrictions",
+   "section": "Load-In",
+   "statement": "The only team permitted activities during load in periods prior to pits opening are:",
+   "violation": "Teams will be asked to leave the pit area."
+  },
+  {
+   "code": "E404",
+   "title": "Pit must be left in a safe state",
+   "section": "Load-In",
+   "statement": "Teams must have their pits in a safe state by the time pits close (even if some tasks are left undone).",
+   "violation": ""
+  },
+  {
+   "code": "E405",
+   "title": "Once done, head out",
+   "section": "Load-In",
+   "statement": "Unless assisting other teams, teams must leave the venue once finished delivering materials (or, in the case of Early Pit Setup, when setup is complete) prior to pits opening.",
+   "violation": "Teams will be asked to leave the pit area."
+  },
+  {
+   "code": "E501",
+   "title": "Pits are unavailable if closed",
+   "section": "Pits",
+   "statement": "Teams may not be in their team pit outside the designated pit hours.",
+   "violation": ""
+  },
+  {
+   "code": "E502",
+   "title": "Stay in your pit",
+   "section": "Pits",
+   "statement": "Teams should set up their allowed equipment fully within their assigned pit space. Teams may not:",
+   "violation": ""
+  },
+  {
+   "code": "E503",
+   "title": "Keep aisles clear",
+   "section": "Pits",
+   "statement": "Aisles must be kept clear.",
+   "violation": ""
+  },
+  {
+   "code": "E504",
+   "title": "No sparks or flames",
+   "section": "Pits",
+   "statement": "Tools that throw sparks or produce open flames are prohibited.",
+   "violation": ""
+  },
+  {
+   "code": "E505",
+   "title": "Nothing too big",
+   "section": "Pits",
+   "statement": "Floor standing power tools are prohibited.",
+   "violation": "Teams will be asked to remove or not bring in floor standing power tools. Any items that are deemed unsafe or outside specifications by FIRST personnel, event management, and/or local committee members must be removed."
+  },
+  {
+   "code": "E506",
+   "title": "No brazing or welding",
+   "section": "Pits",
+   "statement": "Brazing/welding is prohibited.",
+   "violation": "Teams will be asked to remove or not bring in brazing/welding tools. Any items that are deemed unsafe or outside specifications by FIRST personnel, event management, and/or local committee members must be removed."
+  },
+  {
+   "code": "E507",
+   "title": "Solder with specific tools only",
+   "section": "Pits",
+   "statement": "Soldering may be done using an electric iron/gun only.",
+   "violation": "Any items that are deemed unsafe or outside specifications by FIRST personnel, event management, and/or local committee members must be removed."
+  },
+  {
+   "code": "E508",
+   "title": "Structures must be safe",
+   "section": "Pits",
+   "statement": "Teams may not build any structure that supports people or stores items overhead.",
+   "violation": "Any pit structures that is deemed unsafe or outside specifications by FIRST personnel, event management, and/or local committee members must be removed."
+  },
+  {
+   "code": "E509",
+   "title": "Secure team identification assets",
+   "section": "Pits",
+   "statement": "Team signs, flags, and displays must be securely mounted to the pit structure.",
+   "violation": "Any pit structures that is deemed unsafe or outside specifications by FIRST personnel, event management, and/or local committee members must be removed."
+  },
+  {
+   "code": "E510",
+   "title": "No automated tools overnight",
+   "section": "Pits",
+   "statement": "Teams may not run a 3D printer or other automated manufacturing process overnight in the pit.",
+   "violation": ""
+  },
+  {
+   "code": "E511",
+   "title": "Pit Power Limit",
+   "section": "Pits",
+   "statement": "Power to team pits is often shared between multiple teams. Team pits that are causing breakers to trip may be asked to reduce power consumption.",
+   "violation": ""
+  },
+  {
+   "code": "E601",
+   "title": "Inspection for TEST & PRACTICE AREAS",
+   "section": "TEST AREAS and PRACTICE AREAS",
+   "statement": "A team may only use the designated TEST AREAS and PRACTICE AREAS with a ROBOT that has passed an initial, complete inspection.",
+   "violation": ""
+  },
+  {
+   "code": "E602",
+   "title": "Practice only when/where permitted",
+   "section": "TEST AREAS and PRACTICE AREAS",
+   "statement": "Teams may only practice with their ROBOT in their pit space, in the designated event TEST AREAS, PRACTICE AREAS, or while in a Practice MATCH.",
+   "violation": ""
+  },
+  {
+   "code": "E603",
+   "title": "TEST/PRACTICE AREA attendance is limited",
+   "section": "TEST AREAS and PRACTICE AREAS",
+   "statement": "Only team members actively working on the ROBOT are allowed to be at the TEST/PRACTICE AREA.",
+   "violation": ""
+  },
+  {
+   "code": "E604",
+   "title": "Give ROBOTS space",
+   "section": "TEST AREAS and PRACTICE AREAS",
+   "statement": "When using a tether on TEST AREAS and PRACTICE AREAS, teams must keep a safe distance from all ROBOTS and moving elements and must not interact directly with the ROBOT when it is enabled.",
+   "violation": ""
+  },
+  {
+   "code": "E605",
+   "title": "Be ready to DISABLE",
+   "section": "TEST AREAS and PRACTICE AREAS",
+   "statement": "Teams must be ready to DISABLE their ROBOT if the ROBOT does not move in the desired direction or in case of safety.",
+   "violation": ""
+  },
+  {
+   "code": "E606",
+   "title": "Be safe",
+   "section": "TEST AREAS and PRACTICE AREAS",
+   "statement": "G102 and G103 also apply at the TEST AREAS and PRACTICE AREAS.",
+   "violation": "VERBAL WARNING. TEST/PRACTICE AREA suspension if subsequent violations during the event."
+  },
+  {
+   "code": "E701",
+   "title": "Carts must be safe and easy to use",
+   "section": "ROBOT Carts",
+   "statement": "Carts must be easy to control, maneuver, and pose no risk to bystanders.",
+   "violation": ""
+  },
+  {
+   "code": "E702",
+   "title": "Carts shouldn’t be too big",
+   "section": "ROBOT Carts",
+   "statement": "Carts must fit through a standard 30.0in (76.2cm) door.",
+   "violation": ""
+  },
+  {
+   "code": "E703",
+   "title": "Carts can’t park anywhere",
+   "section": "ROBOT Carts",
+   "statement": "Carts must remain in the team pit (or cart staging area if during a MATCH) when not in use.",
+   "violation": ""
+  },
+  {
+   "code": "E704",
+   "title": "No noisy carts",
+   "section": "ROBOT Carts",
+   "statement": "Carts may not be equipped with music or other sound-generating devices, except for devices of reasonable volume used for safety purposes (e.g. to make others in the vicinity aware that a ROBOT is on the move).",
+   "violation": ""
+  },
+  {
+   "code": "E705",
+   "title": "No motor driven carts",
+   "section": "ROBOT Carts",
+   "statement": "ROBOT carts may not use powered propulsion.",
+   "violation": ""
+  },
+  {
+   "code": "E706",
+   "title": "Small ROBOT carts are allowed on the FIELD",
+   "section": "ROBOT Carts",
+   "statement": "ROBOT carts smaller than 30.0in (76.2cm) by 36.0in (91.4cm) may be brought onto the FIELD to aid in staging and retrieving the ROBOT provided they are not left unattended and do not pose any other safety hazards.",
+   "violation": ""
+  },
+  {
+   "code": "E801",
+   "title": "If in the pits during Ceremonies, shhhhhh",
+   "section": "Ceremonies",
+   "statement": "During Ceremonies outside of Playoff MATCHES, team members may not:",
+   "violation": ""
+  },
+  {
+   "code": "E802",
+   "title": "Pit person limit during Ceremonies is 5",
+   "section": "Ceremonies",
+   "statement": "No more than 5 team members may be in the pits during Ceremonies outside of Playoff MATCHES.",
+   "violation": ""
+  },
+  {
+   "code": "E803",
+   "title": "Be respectful during anthems",
+   "section": "Ceremonies",
+   "statement": "Team members, including any remaining in the pits, should exhibit peaceful behavior during the presentation of all national anthems. Traditionally, team members stand to face the flag, remove hats, and either sing along or maintain a respectful silence during the anthems of all nations present at the event. If team members wish to abstain, they have a right to do so, as long as they remain silent and non-disruptive.",
+   "violation": ""
+  },
+  {
+   "code": "E901",
+   "title": "No saving seats",
+   "section": "In the Stands",
+   "statement": "Teams are not permitted to save or designate seats for team members that are not present.",
+   "violation": ""
+  },
+  {
+   "code": "E902",
+   "title": "Don’t throw items from the stands",
+   "section": "In the Stands",
+   "statement": "Items may not be thrown from audience seating.",
+   "violation": ""
+  }
+ ]
+}

@@ -2,7 +2,9 @@
 //  ContentView.swift
 //  FRC Head Ref Helper
 //
-//  Created by Jack Doherty on 9/12/26.
+//  Picks the right shell for the device and hands both of them the same
+//  Notebook. The phone gets the full notebook; the watch gets the read-only
+//  glance view.
 //
 
 import SwiftUI
@@ -10,71 +12,29 @@ import SwiftData
 
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+
+    /// One Notebook for the whole app. It owns the loaded entries plus all the
+    /// UI state, so every screen reads the same badges and hints.
+    @State private var notebook = Notebook()
 
     var body: some View {
-        NavigationViewWrapper {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
+        Group {
+            #if os(watchOS)
+            WatchRootView()
+            #else
+            RefRootView()
+            #endif
         }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+        .environment(notebook)
+        .task {
+            // Deferred to here rather than init: the model context only exists
+            // once the view is in a scene.
+            notebook.attach(to: modelContext)
         }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
-        }
-    }
-}
-
-fileprivate struct NavigationViewWrapper<Content: View>: View {
-    let content: () -> Content
-
-    var body: some View {
-#if os(macOS)
-        NavigationSplitView {
-            content()
-        } detail: {
-            Text("Select an item")
-        }
-#else
-        content()
-#endif
     }
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: RefEntry.self, inMemory: true)
 }
