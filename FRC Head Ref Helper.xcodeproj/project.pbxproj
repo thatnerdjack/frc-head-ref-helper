@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		AA010000000000000000AAB4 /* RefWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA010000000000000000AAA1 /* RefWidgets.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
+		AA010000000000000000AAB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAFA2DAB3055D11A00E37AAC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AA010000000000000000AAA2;
+			remoteInfo = RefWidgets;
+		};
 		DAFA2DC53055D11B00E37AAC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DAFA2DAB3055D11A00E37AAC /* Project object */;
@@ -21,18 +32,7 @@
 			remoteGlobalIDString = DAFA2DB23055D11A00E37AAC;
 			remoteInfo = "FRC Head Ref Helper";
 		};
-		AA010000000000000000AAB3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DAFA2DAB3055D11A00E37AAC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AA010000000000000000AAA2;
-			remoteInfo = RefWidgets;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXBuildFile section */
-		AA010000000000000000AAB4 /* RefWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = AA010000000000000000AAA1 /* RefWidgets.appex */; platformFilters = (ios, ); settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-/* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		AA010000000000000000AAB1 /* Embed Foundation Extensions */ = {
@@ -49,20 +49,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AA010000000000000000AAA1 /* RefWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RefWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFA2DB33055D11A00E37AAC /* FRC Head Ref Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FRC Head Ref Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFA2DC43055D11B00E37AAC /* FRC Head Ref HelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FRC Head Ref HelperTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAFA2DCE3055D11B00E37AAC /* FRC Head Ref HelperUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FRC Head Ref HelperUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA010000000000000000AAA1 /* RefWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RefWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		DAFA2DD63055D11B00E37AAC /* Exceptions for "FRC Head Ref Helper" folder in "FRC Head Ref Helper" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */;
-		};
 		AA010000000000000000AAB5 /* Exceptions for "RefWidgets" folder in "RefWidgets" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -70,9 +63,29 @@
 			);
 			target = AA010000000000000000AAA2 /* RefWidgets */;
 		};
+		DAFA2DD63055D11B00E37AAC /* Exceptions for "FRC Head Ref Helper" folder in "FRC Head Ref Helper" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		AA010000000000000000AAA6 /* RefWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				AA010000000000000000AAB5 /* Exceptions for "RefWidgets" folder in "RefWidgets" target */,
+			);
+			path = RefWidgets;
+			sourceTree = "<group>";
+		};
+		AA010000000000000000AAA7 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		DAFA2DB53055D11A00E37AAC /* FRC Head Ref Helper */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -91,22 +104,16 @@
 			path = "FRC Head Ref HelperUITests";
 			sourceTree = "<group>";
 		};
-		AA010000000000000000AAA6 /* RefWidgets */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				AA010000000000000000AAB5 /* Exceptions for "RefWidgets" folder in "RefWidgets" target */,
-			);
-			path = RefWidgets;
-			sourceTree = "<group>";
-		};
-		AA010000000000000000AAA7 /* Shared */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Shared;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA010000000000000000AAA4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAFA2DB03055D11A00E37AAC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,13 +129,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DAFA2DCB3055D11B00E37AAC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA010000000000000000AAA4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -164,6 +164,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AA010000000000000000AAA2 /* RefWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA010000000000000000AAA8 /* Build configuration list for PBXNativeTarget "RefWidgets" */;
+			buildPhases = (
+				AA010000000000000000AAA3 /* Sources */,
+				AA010000000000000000AAA4 /* Frameworks */,
+				AA010000000000000000AAA5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				AA010000000000000000AAA6 /* RefWidgets */,
+				AA010000000000000000AAA7 /* Shared */,
+			);
+			name = RefWidgets;
+			packageProductDependencies = (
+			);
+			productName = RefWidgets;
+			productReference = AA010000000000000000AAA1 /* RefWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = DAFA2DD73055D11B00E37AAC /* Build configuration list for PBXNativeTarget "FRC Head Ref Helper" */;
@@ -179,8 +202,8 @@
 				AA010000000000000000AAB2 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				DAFA2DB53055D11A00E37AAC /* FRC Head Ref Helper */,
 				AA010000000000000000AAA7 /* Shared */,
+				DAFA2DB53055D11A00E37AAC /* FRC Head Ref Helper */,
 			);
 			name = "FRC Head Ref Helper";
 			packageProductDependencies = (
@@ -235,29 +258,6 @@
 			productReference = DAFA2DCE3055D11B00E37AAC /* FRC Head Ref HelperUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		AA010000000000000000AAA2 /* RefWidgets */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA010000000000000000AAA8 /* Build configuration list for PBXNativeTarget "RefWidgets" */;
-			buildPhases = (
-				AA010000000000000000AAA3 /* Sources */,
-				AA010000000000000000AAA4 /* Frameworks */,
-				AA010000000000000000AAA5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				AA010000000000000000AAA6 /* RefWidgets */,
-				AA010000000000000000AAA7 /* Shared */,
-			);
-			name = RefWidgets;
-			packageProductDependencies = (
-			);
-			productName = RefWidgets;
-			productReference = AA010000000000000000AAA1 /* RefWidgets.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -268,10 +268,10 @@
 				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2660;
 				TargetAttributes = {
-					DAFA2DB23055D11A00E37AAC = {
+					AA010000000000000000AAA2 = {
 						CreatedOnToolsVersion = 26.6;
 					};
-					AA010000000000000000AAA2 = {
+					DAFA2DB23055D11A00E37AAC = {
 						CreatedOnToolsVersion = 26.6;
 					};
 					DAFA2DC33055D11B00E37AAC = {
@@ -307,6 +307,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA010000000000000000AAA5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		DAFA2DB13055D11A00E37AAC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -328,16 +335,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA010000000000000000AAA5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA010000000000000000AAA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
 		DAFA2DAF3055D11A00E37AAC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -359,16 +366,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA010000000000000000AAA3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		AA010000000000000000AAB2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = AA010000000000000000AAA2 /* RefWidgets */;
+			targetProxy = AA010000000000000000AAB3 /* PBXContainerItemProxy */;
+		};
 		DAFA2DC63055D11B00E37AAC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */;
@@ -379,17 +385,63 @@
 			target = DAFA2DB23055D11A00E37AAC /* FRC Head Ref Helper */;
 			targetProxy = DAFA2DCF3055D11B00E37AAC /* PBXContainerItemProxy */;
 		};
-		AA010000000000000000AAB2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilters = (
-				ios,
-			);
-			target = AA010000000000000000AAA2 /* RefWidgets */;
-			targetProxy = AA010000000000000000AAB3 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		AA010000000000000000AAA9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RefWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RefWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper.RefWidgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA010000000000000000AAB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RefWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RefWidgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper.RefWidgets";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		DAFA2DD83055D11B00E37AAC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -740,63 +792,18 @@
 			};
 			name = Release;
 		};
-		AA010000000000000000AAA9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RefWidgets;
-				INFOPLIST_FILE = RefWidgets/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper.RefWidgets";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		AA010000000000000000AAB0 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = RefWidgets;
-				INFOPLIST_FILE = RefWidgets/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "me.jackdoherty.FRC-Head-Ref-Helper.RefWidgets";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA010000000000000000AAA8 /* Build configuration list for PBXNativeTarget "RefWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA010000000000000000AAA9 /* Debug */,
+				AA010000000000000000AAB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DAFA2DAE3055D11A00E37AAC /* Build configuration list for PBXProject "FRC Head Ref Helper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -829,15 +836,6 @@
 			buildConfigurations = (
 				DAFA2DE03055D11B00E37AAC /* Debug */,
 				DAFA2DE13055D11B00E37AAC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA010000000000000000AAA8 /* Build configuration list for PBXNativeTarget "RefWidgets" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA010000000000000000AAA9 /* Debug */,
-				AA010000000000000000AAB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
