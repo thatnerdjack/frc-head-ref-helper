@@ -124,6 +124,16 @@ struct SettingsScreen: View {
                             .font(RefFont.text(12))
                             .foregroundStyle(.secondary)
                     }
+
+                    // A source can be switched on and still be held back by
+                    // what else is switched on — say so on the toggle itself,
+                    // next to the switch that looks like it's doing more.
+                    if notebook.sources.isEnabled(source),
+                       let restriction = source.restrictionNote(given: notebook.sources.enabled) {
+                        Label(restriction, systemImage: "exclamationmark.circle")
+                            .font(RefFont.text(12))
+                            .foregroundStyle(RefColor.goldPale)
+                    }
                 }
             }
         } header: {
@@ -153,6 +163,16 @@ struct SettingsScreen: View {
                 } label: {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(capability.label).font(RefFont.text(15))
+
+                        // "No source", or a surprising source, with no reason
+                        // given is the kind of thing that gets debugged at 7am
+                        // on a Saturday. Say which source was passed over here
+                        // and why, on the row that shows the consequence.
+                        if let restriction = notebook.sources.restrictionNote(for: capability) {
+                            Text(restriction)
+                                .font(RefFont.text(12))
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             }

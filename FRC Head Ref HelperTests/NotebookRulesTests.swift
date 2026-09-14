@@ -222,6 +222,52 @@ func unmetCapabilitiesAreReported() {
     #expect(config.unmetCapabilities.isEmpty)
 }
 
+@Test("With Cheesy Arena running, frc.events is avatars only")
+func arenaRestrictsFrcEventsToAvatars() {
+    let config = SourceConfiguration()
+    config.enabled = [.frcEvents, .cheesyArena]
+
+    // Avatars are season-wide team data, so they cannot disagree with the
+    // field. Everything else frc.events knows is about a different event.
+    #expect(DataSourceKind.frcEvents.servedCapabilities(given: config.enabled) == [.teamAvatars])
+    #expect(config.provider(for: .teamAvatars) == .frcEvents)
+    #expect(config.provider(for: .matchSchedule) == .cheesyArena)
+
+    // The easy-to-miss consequence, and the whole point of the Coverage
+    // section: scores now have no source at all, and the app says so before
+    // the event instead of guessing during it.
+    #expect(config.provider(for: .officialScores) == nil)
+    #expect(config.unmetCapabilities.contains(.officialScores))
+
+    // TBA fills the scoring gap; frc.events stays restricted regardless.
+    config.enabled.insert(.blueAlliance)
+    #expect(config.provider(for: .officialScores) == .blueAlliance)
+    #expect(config.provider(for: .teamAvatars) == .frcEvents)
+}
+
+@Test("A skipped source explains itself rather than vanishing")
+func restrictionIsExplained() {
+    let config = SourceConfiguration()
+
+    // Nothing is being held back yet, so nothing needs explaining.
+    config.enabled = [.frcEvents, .blueAlliance]
+    #expect(DataSourceKind.frcEvents.restrictionNote(given: config.enabled) == nil)
+    #expect(config.restrictionNote(for: .officialScores) == nil)
+
+    config.enabled.insert(.cheesyArena)
+    #expect(DataSourceKind.frcEvents.restrictionNote(given: config.enabled) != nil)
+    // The row where frc.events was passed over carries the reason…
+    #expect(config.restrictionNote(for: .officialScores) != nil)
+    // …but one it still wins does not.
+    #expect(config.restrictionNote(for: .teamAvatars) == nil)
+    // Nor does a capability frc.events was never ranked for in the first place.
+    #expect(config.restrictionNote(for: .queueStatus) == nil)
+
+    // The ranking itself is a constant and must not move with the toggles.
+    #expect(DataSourceKind.preferenceOrder(for: .matchSchedule)
+            == [.cheesyArena, .frcEvents, .blueAlliance])
+}
+
 @Test("Arena match states map to the Go enum's ordering")
 func arenaStatesMatchCheesyArena() {
     // Order mirrors MatchState in cheesy-arena field/arena.go.
