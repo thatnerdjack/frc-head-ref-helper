@@ -31,8 +31,12 @@ struct TeamChip: Codable, Hashable, Identifiable {
 struct MatchActivityAttributes: ActivityAttributes {
     /// Everything that changes over the life of one match.
     struct ContentState: Codable, Hashable {
-        /// "Q41", or "Q41 (replay 2)".
+        /// "Q41", or "Q41 (replay 2)". For the lock screen, where there is room.
         var matchLabel: String
+        /// Always the bare "Q41". The Dynamic Island's leading and compact
+        /// regions are only a few points wide — they sit either side of the
+        /// camera — so the long spelling is clipped there rather than scaled.
+        var matchShort: String
         /// "TELEOP", "NEXT MATCH", "TIMEOUT" — whatever the clock is counting.
         var stateLabel: String
         /// When the current countdown reaches zero. Nil when nothing is timed.

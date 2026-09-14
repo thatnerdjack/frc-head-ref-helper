@@ -20,6 +20,16 @@ final class RefEntry {
     /// stores don't allow those.
     var entryID: UUID = UUID()
 
+    /// The event this entry belongs to, as an `EventCode.tbaKey` ("2026cada").
+    ///
+    /// Without this every count, badge, escalation hint and export pooled every
+    /// entry ever written across every event — so a card from last week's
+    /// offseason showed up against a team today. Empty means "unfiled": an
+    /// entry written by a build from before scoping existed.
+    ///
+    /// Defaulted and non-unique, which is what a CloudKit-backed store requires.
+    var eventKey: String = ""
+
     /// A team number ("8341") or an alliance label ("Alliance 4"). Alliance
     /// entries are how the design applies a playoff card to all three teams
     /// at once.
@@ -52,6 +62,7 @@ final class RefEntry {
         subject: String,
         severity: Severity,
         ruleCode: String,
+        eventKey: String = "",
         matchKeyRaw: String = "",
         matchLabel: String = "—",
         timeLabel: String = "",
@@ -59,6 +70,7 @@ final class RefEntry {
         createdAt: Date = .now
     ) {
         self.entryID = UUID()
+        self.eventKey = eventKey
         self.subject = subject
         self.severityRaw = severity.rawValue
         self.ruleCode = ruleCode
@@ -94,17 +106,22 @@ extension RefEntry {
             // 8341 twice on G418 is the escalation case: two verbal warnings
             // for the same rule is where the manual points at a yellow.
             RefEntry(subject: "8341", severity: .verbalWarning, ruleCode: "G418",
+                     eventKey: SampleEvent.code.tbaKey,
                      matchKeyRaw: "Q39.1", matchLabel: "Q39", timeLabel: "14:22",
                      note: "Held 5883 on the wall past the count. Told the drive coach."),
             RefEntry(subject: "4055", severity: .verbalWarning, ruleCode: "G413",
+                     eventKey: SampleEvent.code.tbaKey,
                      matchKeyRaw: "Q38.1", matchLabel: "Q38", timeLabel: "14:11",
                      note: "Over-extended reaching across the BUMP."),
             RefEntry(subject: "8341", severity: .verbalWarning, ruleCode: "G418",
+                     eventKey: SampleEvent.code.tbaKey,
                      matchKeyRaw: "Q37.1", matchLabel: "Q37", timeLabel: "14:05"),
             RefEntry(subject: "7460", severity: .yellowCard, ruleCode: "G420",
+                     eventKey: SampleEvent.code.tbaKey,
                      matchKeyRaw: "Q36.1", matchLabel: "Q36", timeLabel: "13:48",
                      note: "Third contact with a climbing opponent after two warnings."),
             RefEntry(subject: "5883", severity: .teamNote, ruleCode: "R107",
+                     eventKey: SampleEvent.code.tbaKey,
                      matchLabel: "—", timeLabel: "13:30",
                      note: "Measures over when the elevator tilts forward. Watch it in playoffs."),
         ]

@@ -25,16 +25,23 @@ struct MatchLiveActivity: Widget {
             DynamicIsland {
                 // The leading/trailing regions are narrow — they sit either
                 // side of the camera — so they hold only the match and clock.
-                // The alliances go in the bottom region, which is full width.
+                // Both are explicitly constrained: unconstrained text here is
+                // clipped by the island's rounded edge rather than scaled, and
+                // whatever the trailing side reserves comes out of the leading
+                // side's width.
                 DynamicIslandExpandedRegion(.leading) {
                     VStack(alignment: .leading, spacing: 1) {
-                        Text(context.state.matchLabel)
+                        Text(context.state.matchShort)
                             .font(.subheadline.weight(.semibold))
                             .foregroundStyle(.white)
                         Text(context.state.stateLabel)
                             .font(.system(size: 9, weight: .semibold))
                             .foregroundStyle(.white.opacity(0.6))
                     }
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.7)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 4)
                 }
                 DynamicIslandExpandedRegion(.trailing) {
                     CountdownText(state: context.state)
@@ -43,6 +50,7 @@ struct MatchLiveActivity: Widget {
                         .foregroundStyle(accent(context.state))
                         .lineLimit(1)
                         .frame(minWidth: 62, alignment: .trailing)
+                        .padding(.trailing, 4)
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     VStack(spacing: 4) {
@@ -51,11 +59,13 @@ struct MatchLiveActivity: Widget {
                         StatusLine(state: context.state)
                             .padding(.top, 2)
                     }
+                    .padding(.horizontal, 4)
                 }
             } compactLeading: {
-                Text(context.state.matchLabel)
+                Text(context.state.matchShort)
                     .font(.caption2.weight(.semibold))
                     .foregroundStyle(accent(context.state))
+                    .lineLimit(1)
             } compactTrailing: {
                 CountdownText(state: context.state)
                     .font(.caption2.weight(.semibold))
@@ -63,10 +73,11 @@ struct MatchLiveActivity: Widget {
                     .foregroundStyle(accent(context.state))
                     .frame(minWidth: 48, maxWidth: 56, alignment: .trailing)
             } minimal: {
-                CountdownText(state: context.state)
-                    .font(.caption2.weight(.semibold))
-                    .monospacedDigit()
-                    .foregroundStyle(accent(context.state))
+                // What shows when another app's Live Activity takes precedence.
+                // This is a ~24pt circle, so digits do not fit — a countdown
+                // RING does, it ticks itself from the same end date, and it
+                // still answers "how long have I got" at a glance.
+                MinimalCountdown(state: context.state, tint: accent(context.state))
             }
             .keylineTint(accent(context.state))
         }
@@ -75,6 +86,34 @@ struct MatchLiveActivity: Widget {
     /// Green while a match is actually being played, gold when waiting.
     private func accent(_ state: MatchActivityAttributes.ContentState) -> Color {
         state.isMatchRunning ? RefColor.live : RefColor.gold
+    }
+}
+
+// MARK: - Minimal presentation
+
+/// The Dynamic Island's smallest form, used when another Live Activity is in
+/// front of ours. A circular countdown driven by the same end date, so it
+/// ticks without the app pushing anything.
+struct MinimalCountdown: View {
+    let state: MatchActivityAttributes.ContentState
+    let tint: Color
+
+    var body: some View {
+        if let end = state.countdownEnd {
+            ProgressView(timerInterval: Date.now...end, countsDown: true) {
+                EmptyView()
+            } currentValueLabel: {
+                EmptyView()
+            }
+            .progressViewStyle(.circular)
+            .tint(tint)
+        } else {
+            // No clock running. A dot in the state colour still says which
+            // event surface this is, without implying a countdown.
+            Circle()
+                .fill(tint)
+                .frame(width: 8, height: 8)
+        }
     }
 }
 
@@ -167,6 +206,7 @@ struct AllianceRow: View {
             Capsule()
                 .fill(color.bar)
                 .frame(width: prominent ? 4 : 3, height: prominent ? 22 : 14)
+                .padding(.leading, prominent ? 0 : 2)
 
             ForEach(teams) { team in
                 HStack(spacing: 4) {

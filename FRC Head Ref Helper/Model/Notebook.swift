@@ -132,7 +132,15 @@ final class Notebook {
     // watch's "time left" readout, which is explicitly an estimate derived
     // from the start time rather than a feed from FMS.
     static let matchLength: TimeInterval = 150
-    var breakSecondsRemaining = 204
+    /// When the current timeout / field reset ends. Nil when no clock is
+    /// running — which is different from "zero", and the UI must say so
+    /// rather than invent a countdown.
+    ///
+    /// A deadline rather than a decrementing counter because a counter is
+    /// wrong the moment the app is suspended, and because deriving the Live
+    /// Activity's end date from `now` made that date jitter every tick (see
+    /// `countdownEnd`).
+    var timeoutEndsAt: Date?
 
     /// Loaded entries, newest first. Held here rather than `@Query`'d per view
     /// so badges and hints can be computed in one place.
@@ -152,6 +160,7 @@ final class Notebook {
     func attach(to context: ModelContext) {
         guard self.context == nil else { return }
         self.context = context
+        adoptUnfiledEntries()
         seedIfNeeded()
         reload()
         startClock()
@@ -195,7 +204,6 @@ final class Notebook {
                 try? await Task.sleep(for: .seconds(1))
                 guard let self else { return }
                 self.now = .now
-                self.breakSecondsRemaining = self.breakSecondsRemaining > 0 ? self.breakSecondsRemaining - 1 : 204
                 self.syncLiveActivity()
             }
         }
@@ -206,6 +214,24 @@ final class Notebook {
         toastDismissal?.cancel()
     }
 
+    /// Files entries written before entries carried an event.
+    ///
+    /// Reads are scoped by event, so a row left at the default empty key is
+    /// invisible — an upgrading referee would open the app to a blank
+    /// notebook, which is the worst outcome this app has. An unfiled entry
+    /// belongs to whatever event was open when it was written, and the only
+    /// event we can still name is the current one.
+    private func adoptUnfiledEntries() {
+        guard let context else { return }
+        let unfiled = (try? context.fetch(
+            FetchDescriptor<RefEntry>(predicate: #Predicate { $0.eventKey == "" })
+        )) ?? []
+        guard !unfiled.isEmpty else { return }
+        let key = eventCode.tbaKey
+        for entry in unfiled { entry.eventKey = key }
+        try? context.save()
+    }
+
     private func seedIfNeeded() {
         guard let context else { return }
         let existing = (try? context.fetchCount(FetchDescriptor<RefEntry>())) ?? 0
@@ -214,9 +240,20 @@ final class Notebook {
         try? context.save()
     }
 
+    /// Loads this event's entries, newest first.
+    ///
+    /// Scoping happens HERE and nowhere else. Every derived read — counts,
+    /// badges, escalation hints, hot rules, both exports, the day-complete
+    /// tallies — goes through `entries`, so one predicate scopes all of them
+    /// and there is exactly one place that can be wrong.
     private func reload() {
         guard let context else { return }
-        let descriptor = FetchDescriptor<RefEntry>(sortBy: [SortDescriptor(\.createdAt, order: .reverse)])
+        // #Predicate cannot capture self, so the key is bound locally first.
+        let key = eventCode.tbaKey
+        let descriptor = FetchDescriptor<RefEntry>(
+            predicate: #Predicate { $0.eventKey == key },
+            sortBy: [SortDescriptor(\.createdAt, order: .reverse)]
+        )
         entries = (try? context.fetch(descriptor)) ?? []
     }
 
@@ -288,7 +325,6 @@ final class Notebook {
         }
         guard let (code, count) = byRule.first(where: { $0.value >= 2 }) else { return nil }
         return "\(subject) has \(count) verbal warnings for \(code) at this event. "
-             + "A repeat is where the manual points at a yellow."
     }
 
     func entries(for subject: String) -> [RefEntry] {
@@ -395,6 +431,12 @@ final class Notebook {
         return "\(clamped / 60):\(String(format: "%02d", clamped % 60))"
     }
 
+    /// Seconds left on the timeout clock, or 0 when none is running.
+    var breakSecondsRemaining: Int {
+        guard let timeoutEndsAt else { return 0 }
+        return Int(max(0, timeoutEndsAt.timeIntervalSince(now)))
+    }
+
     var breakClock: String { clock(breakSecondsRemaining) }
 
     /// Seconds until the next match is scheduled to start.
@@ -484,7 +526,17 @@ final class Notebook {
     /// for it. The original play keeps its entries, and the replay becomes a
     /// new play of the same match number.
     func recordReplay(of key: MatchKey) {
-        guard let index = schedule.firstIndex(where: { $0.key == key }) else { return }
+        // Only the LATEST play of a match number can be replayed. The original
+        // play stays in the schedule on purpose — it keeps its entries — so
+        // "find this key and insert play + 1" fires again on a duplicate
+        // notification and produces a second play 2 with the same id. The
+        // field sends duplicate frames as a matter of course, so this guard is
+        // load-bearing rather than defensive.
+        let plays = schedule.filter { $0.key.level == key.level && $0.key.number == key.number }
+        guard let latest = plays.max(by: { $0.key.play < $1.key.play }),
+              latest.key.play == key.play,
+              let index = schedule.firstIndex(where: { $0.key == latest.key })
+        else { return }
         let match = schedule[index]
 
         var original = match
@@ -521,8 +573,13 @@ final class Notebook {
     /// Accepts whatever the head ref typed, in either spelling.
     func applyEventCode() {
         guard let parsed = EventCode(eventCodeDraft) else { return }
+        guard parsed != eventCode else { return }
         eventCode = parsed
         eventCodeDraft = parsed.tbaKey
+        // The notebook is per-event, so the loaded entries must change with it.
+        // Nothing is deleted — the outgoing event's entries stay in the store
+        // and come back when it is selected again.
+        reload()
         show(toast: "Loaded \(parsed.tbaKey). Pulling from \(enabledSourceSummary).")
     }
 
@@ -536,6 +593,10 @@ final class Notebook {
         let all = FieldState.allCases
         let next = ((all.firstIndex(of: fieldState) ?? -1) + 1) % all.count
         fieldState = all[next]
+        // Arming the clock is the field's job. Until a source does it, the
+        // debug cycle stands in — but it sets a real deadline rather than
+        // starting a counter that loops forever and reads as a live timeout.
+        timeoutEndsAt = fieldState == .paused ? now.addingTimeInterval(204) : nil
     }
 
     var saveButtonTitle: String {
@@ -556,6 +617,7 @@ final class Notebook {
             subject: subject,
             severity: selectedSeverity,
             ruleCode: selectedRuleCode,
+            eventKey: eventCode.tbaKey,
             matchKeyRaw: currentMatch?.key.storageKey ?? "",
             matchLabel: currentMatch?.key.display ?? "—",
             timeLabel: Self.timeFormatter.string(from: .now),
@@ -604,6 +666,7 @@ final class Notebook {
 
         return MatchActivityAttributes.ContentState(
             matchLabel: match?.key.display ?? "—",
+            matchShort: match?.key.short ?? "—",
             stateLabel: primaryClock.label,
             countdownEnd: countdownEnd,
             isMatchRunning: showingCurrent,
@@ -615,12 +678,21 @@ final class Notebook {
     }
 
     /// When the clock currently being shown reaches zero.
+    /// When the clock currently being shown reaches zero.
+    ///
+    /// Every branch returns a FIXED date, never one derived from `now`.
+    /// `now + remaining` looks equivalent but drifts by the truncated
+    /// fractional second on every tick, so the `ContentState` hash changed
+    /// once a second and `LiveActivityController`'s signature check — the
+    /// whole reason the widget ticks itself — never matched. The result was
+    /// an ActivityKit push every second, all day.
     private var countdownEnd: Date? {
         if fieldState == .paused || arenaState?.isTimeout == true {
-            return now.addingTimeInterval(TimeInterval(breakSecondsRemaining))
+            return timeoutEndsAt
         }
-        if isMatchRunning, let remaining = matchSecondsRemaining {
-            return now.addingTimeInterval(TimeInterval(remaining))
+        if isMatchRunning, matchSecondsRemaining != nil,
+           let started = currentMatch?.actualStart {
+            return started.addingTimeInterval(Self.matchLength)
         }
         return nextMatch?.scheduledStart
     }
@@ -642,7 +714,7 @@ final class Notebook {
 
     var exportSummary: String {
         let subjects = Set(entries.map(\.subject)).count
-        return "\(entries.count) entries across \(subjects) teams. Markdown for email, CSV for the archive."
+        return "\(entries.count) entries across \(subjects) teams."
     }
 
     /// The report a head ref emails at the end of the day. Grouped the way the

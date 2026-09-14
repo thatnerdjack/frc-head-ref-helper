@@ -29,16 +29,8 @@ struct SettingsScreen: View {
 
             Section("Notebook") {
                 Toggle("Escalation hints", isOn: $notebook.escalationHintsEnabled)
-                Text("Flag a repeat violation of the same rule")
-                    .font(RefFont.text(13)).foregroundStyle(.secondary)
-
                 Toggle("Learn my hot rules", isOn: $notebook.hotRulesFirst)
-                Text("Float the rules cited most at this event to the top")
-                    .font(RefFont.text(13)).foregroundStyle(.secondary)
-
                 Toggle("Watch and live activity", isOn: $notebook.watchEnabled)
-                Text("Match clock, queue status and haptics on the wrist")
-                    .font(RefFont.text(13)).foregroundStyle(.secondary)
             }
 
             exportSection
@@ -47,7 +39,7 @@ struct SettingsScreen: View {
                 NavigationLink("Cheesy Arena connection", value: Notebook.SettingsRoute.arena)
             } footer: {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Entries stay on this phone and on your watch. Nothing is sent to FMS or to the field.")
+                    Text("Entries stay on your decice. Nothing is sent to the arena.")
                     // Which manual these rules came from. A referee needs to
                     // know this before trusting a rule number.
                     Text("Rules current as of \(RuleCatalog.manualVersion).")
@@ -106,8 +98,6 @@ struct SettingsScreen: View {
             }
         } header: {
             Text("Event")
-        } footer: {
-            Text("Head referees aren't assigned events in any system this app can read, so enter the code yourself. Either the Blue Alliance key (2026cada) or the bare frc.events code works.\n\nStage follows the field: a playoff match on deck means alliances exist.")
         }
     }
 
@@ -163,20 +153,11 @@ struct SettingsScreen: View {
                 } label: {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(capability.label).font(RefFont.text(15))
-                        Text(capability.detail)
-                            .font(RefFont.text(12))
-                            .foregroundStyle(.secondary)
                     }
                 }
             }
         } header: {
             Text("Coverage")
-        } footer: {
-            if notebook.sources.unmetCapabilities.isEmpty {
-                Text("Every capability has a source.")
-            } else {
-                Text("Not covered: \(notebook.sources.unmetCapabilities.map(\.label).formatted(.list(type: .and))).")
-            }
         }
     }
 

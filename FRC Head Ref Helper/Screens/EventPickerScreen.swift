@@ -74,7 +74,7 @@ struct EventPickerScreen: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .glassCard(isCurrent ? .regular.tint(RefColor.gold.opacity(0.26)) : .regular.interactive(),
+        .glassCard(isCurrent ? .regular.tint(RefColor.gold.opacity(0.26)).interactive() : .regular.interactive(),
                    radius: RefRadius.card)
     }
 }

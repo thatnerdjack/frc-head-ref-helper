@@ -214,9 +214,11 @@ struct UpcomingMatchCard: View {
         VStack(alignment: .leading, spacing: 14) {
             header
 
-            VStack(spacing: 6) {
-                allianceRow(match.red, color: .red)
-                allianceRow(match.blue, color: .blue)
+            GlassEffectContainer(spacing: 6) {
+                VStack(spacing: 6) {
+                    allianceRow(match.red, color: .red)
+                    allianceRow(match.blue, color: .blue)
+                }
             }
 
             footer
@@ -315,18 +317,23 @@ struct UpcomingMatchCard: View {
                             .foregroundStyle(.white.opacity(0.8))
                     }
                     if !isMissing && badge.isEmpty {
-                        Text("clear")
-                            .font(RefFont.text(10))
-                            .foregroundStyle(.white.opacity(0.35))
+                        // Invisible, and deliberately so: it reserves the
+                        // status line's height for a team with nothing
+                        // against it. An empty HStack contributes no height,
+                        // which left clean cells shorter than flagged ones.
+                        Text("0")
+                            .font(RefFont.numeric(10, .semibold))
+                            .hidden()
                     }
                 }
             }
             .frame(maxWidth: .infinity)
             .padding(.vertical, 8)
+            .frame(maxHeight: .infinity)
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .glassCard(isMissing ? .regular.tint(RefColor.gold.opacity(0.28)) : .regular.interactive(),
+        .glassCard(isMissing ? .regular.tint(RefColor.gold.opacity(0.28)).interactive() : .regular.interactive(),
                    radius: 14)
     }
 

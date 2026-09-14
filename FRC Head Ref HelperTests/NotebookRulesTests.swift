@@ -21,9 +21,14 @@ private func makeNotebook(with entries: [RefEntry]? = nil) throws -> Notebook {
     )
     let context = ModelContext(container)
     // Passing entries explicitly skips the sample seed, which only fires when
-    // the store is empty.
+    // the store is empty. Entries are stamped with the event the notebook will
+    // open on, since reads are scoped by event — a test about badge precedence
+    // should not also have to be a test about scoping.
     if let entries {
-        for entry in entries { context.insert(entry) }
+        for entry in entries {
+            if entry.eventKey.isEmpty { entry.eventKey = SampleEvent.code.tbaKey }
+            context.insert(entry)
+        }
         try context.save()
     }
     let notebook = Notebook()
@@ -330,4 +335,148 @@ func replayPreservesOriginalPlay() throws {
     // The entry still points at the play it happened in, not the replay.
     #expect(logged.matchKeyRaw == original.key.storageKey)
     #expect(notebook.schedule.contains { $0.key == original.key })
+}
+
+@MainActor
+@Test("A duplicated replay notification does not create two plays")
+func replayIsIdempotent() throws {
+    // Duplicate websocket frames are normal, and the original play stays in
+    // the schedule by design because it keeps its entries. So a naive "find
+    // the key, insert play + 1" fires twice and produces two matches that are
+    // both Q41.2 — including two rows with the same Identifiable id.
+    let notebook = try makeNotebook(with: [])
+    let original = try #require(notebook.currentMatch)
+
+    notebook.recordReplay(of: original.key)
+    notebook.recordReplay(of: original.key)
+
+    let plays = notebook.schedule.filter {
+        $0.key.level == original.key.level && $0.key.number == original.key.number
+    }
+    #expect(plays.count == 2)
+    #expect(Set(plays.map(\.id)).count == 2)
+    #expect(notebook.currentMatch?.key.play == 2)
+}
+
+// MARK: - Event scoping
+
+@MainActor
+@Test("A team's record is this event's record, not every event's")
+func entriesAreScopedToTheirEvent() throws {
+    // The bug this pins: before entries carried an event key, a card picked up
+    // at last week's offseason counted against a team today, and the
+    // escalation hint said "at this event" while counting across all of them.
+    let here = SampleEvent.code.tbaKey
+    let elsewhere = "2026casd"
+
+    let notebook = try makeNotebook(with: [
+        RefEntry(subject: "1234", severity: .verbalWarning, ruleCode: "G410", eventKey: here),
+        RefEntry(subject: "1234", severity: .redCard, ruleCode: "G206", eventKey: elsewhere),
+        RefEntry(subject: "1234", severity: .verbalWarning, ruleCode: "G410", eventKey: elsewhere),
+    ])
+
+    // The red card belongs to another event and must not outrank today's
+    // single warning.
+    #expect(notebook.badge(for: "1234").text == "1 WARNING")
+    #expect(notebook.counts(for: "1234").total == 1)
+    // Two G410 warnings exist in the store, but only one at this event.
+    #expect(notebook.escalationHint(for: "1234") == nil)
+    #expect(notebook.entriesToday == 1)
+    #expect(notebook.cardsIssued == 0)
+}
+
+@MainActor
+@Test("Switching events swaps the notebook without destroying either one")
+func switchingEventsKeepsBothNotebooks() throws {
+    let here = SampleEvent.code.tbaKey
+    let elsewhere = "2026casd"
+
+    let notebook = try makeNotebook(with: [
+        RefEntry(subject: "1234", severity: .verbalWarning, ruleCode: "G410", eventKey: here),
+        RefEntry(subject: "7777", severity: .yellowCard, ruleCode: "G206", eventKey: elsewhere),
+    ])
+    #expect(notebook.entriesToday == 1)
+    #expect(notebook.badge(for: "7777").isEmpty)
+
+    notebook.eventCodeDraft = elsewhere
+    notebook.applyEventCode()
+
+    // The other event's notebook is now loaded...
+    #expect(notebook.eventCode.tbaKey == elsewhere)
+    #expect(notebook.entriesToday == 1)
+    #expect(notebook.badge(for: "7777").text == "YELLOW")
+    #expect(notebook.badge(for: "1234").isEmpty)
+
+    // ...and switching back finds the first one intact. Nothing was deleted.
+    notebook.eventCodeDraft = here
+    notebook.applyEventCode()
+    #expect(notebook.badge(for: "1234").text == "1 WARNING")
+    #expect(notebook.badge(for: "7777").isEmpty)
+}
+
+@MainActor
+@Test("An entry is stamped with the event it was written at")
+func savedEntryCarriesTheCurrentEvent() throws {
+    let notebook = try makeNotebook(with: [])
+    notebook.selectedSubject = "8341"
+    notebook.selectedRuleCode = "G418"
+    notebook.save()
+
+    let saved = try #require(notebook.entries.first)
+    #expect(saved.eventKey == notebook.eventCode.tbaKey)
+}
+
+// MARK: - Clocks
+
+@MainActor
+@Test("The timeout clock is absent when none is running, not zero")
+func timeoutClockIsAbsentWhenNotRunning() throws {
+    let notebook = try makeNotebook(with: [])
+    // The old model counted down from 204 forever and wrapped, so a referee
+    // glancing at the phone saw a live timeout that did not exist.
+    #expect(notebook.timeoutEndsAt == nil)
+    #expect(notebook.breakSecondsRemaining == 0)
+}
+
+#if os(iOS)
+@MainActor
+@Test("The Live Activity countdown is anchored to the match, not to the tick")
+func countdownEndDoesNotDriftWithTheClock() throws {
+    // `now + remaining` drifts by the truncated fractional second every tick,
+    // so the ContentState hash changed once a second and the controller's
+    // signature check never matched — an ActivityKit push every second, which
+    // is exactly what carrying the countdown as an end date exists to avoid.
+    let notebook = try makeNotebook(with: [])
+    let match = try #require(notebook.currentMatch)
+    let started = try #require(match.actualStart)
+    #expect(notebook.isMatchRunning)
+
+    let state = notebook.liveActivityState
+    #expect(state.countdownEnd == started.addingTimeInterval(Notebook.matchLength))
+    #expect(notebook.liveActivityState.hashValue == state.hashValue)
+}
+#endif
+
+@MainActor
+@Test("Entries written before scoping existed are adopted, not orphaned")
+func unfiledEntriesAreAdoptedOnUpgrade() throws {
+    // Reads are scoped by event, so a row left at the default empty key is
+    // invisible. Upgrading from a build without event keys must not present a
+    // referee with a blank notebook.
+    let container = try ModelContainer(
+        for: RefEntry.self,
+        configurations: ModelConfiguration(isStoredInMemoryOnly: true)
+    )
+    let context = ModelContext(container)
+    // Deliberately NOT stamped — this is what the old schema wrote.
+    context.insert(RefEntry(subject: "8341", severity: .verbalWarning, ruleCode: "G418"))
+    context.insert(RefEntry(subject: "8341", severity: .verbalWarning, ruleCode: "G418"))
+    try context.save()
+
+    let notebook = Notebook()
+    notebook.attach(to: context)
+
+    #expect(notebook.entries.count == 2)
+    #expect(notebook.entries.allSatisfy { $0.eventKey == notebook.eventCode.tbaKey })
+    #expect(notebook.badge(for: "8341").text == "2 WARNINGS")
 }

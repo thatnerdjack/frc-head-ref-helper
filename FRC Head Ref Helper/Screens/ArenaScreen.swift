@@ -69,7 +69,7 @@ struct ArenaScreen: View {
             } header: {
                 Text("Recent servers")
             } footer: {
-                Text("When the arena is unreachable the app keeps working from its last schedule, and your entries never depend on it.")
+                Text("When the arena is unreachable the app keeps working from its last schedule.")
             }
         }
         .scrollContentBackground(.hidden)

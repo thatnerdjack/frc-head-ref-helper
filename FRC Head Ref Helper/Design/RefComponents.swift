@@ -88,6 +88,35 @@ struct StatusBadge: View {
     }
 }
 
+/// One of the three counters above a team's record and on the day-complete
+/// screen. Shared because it was written twice with slightly different label
+/// opacities, and because the two copies disagreed on height: a label that
+/// wrapped to two lines ("Verbal warnings") made its tile taller than its
+/// neighbours. `maxHeight: .infinity` equalises them across the row.
+struct StatTile: View {
+    let value: String
+    let label: String
+    var isHighlighted: Bool = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text(value)
+                .font(RefFont.numeric(30, .semibold))
+                .foregroundStyle(isHighlighted ? RefColor.goldPale : .white)
+            Text(label)
+                .font(RefFont.text(12, .medium))
+                .foregroundStyle(.white.opacity(isHighlighted ? 0.8 : 0.68))
+                .fixedSize(horizontal: false, vertical: true)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 16)
+        .frame(maxHeight: .infinity)
+        .glassCard(isHighlighted ? .regular.tint(RefColor.gold.opacity(0.26)) : .regular,
+                   radius: RefRadius.card)
+    }
+}
+
 /// The all-caps mono label heading each section.
 struct SectionLabel: View {
     let text: String

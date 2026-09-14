@@ -95,19 +95,7 @@ struct TeamDetailScreen: View {
         return GlassEffectContainer(spacing: 8) {
             HStack(spacing: 8) {
                 ForEach(stats, id: \.0) { label, value in
-                    VStack(alignment: .leading, spacing: 6) {
-                        Text("\(value)")
-                            .font(RefFont.numeric(30, .semibold))
-                            .foregroundStyle(.white)
-                        Text(label)
-                            .font(RefFont.text(12, .medium))
-                            .foregroundStyle(.white.opacity(0.62))
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 16)
-                    .glassCard(radius: RefRadius.card)
+                    StatTile(value: "\(value)", label: label)
                 }
             }
         }

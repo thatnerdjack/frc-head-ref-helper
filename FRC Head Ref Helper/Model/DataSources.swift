@@ -56,21 +56,6 @@ enum SourceCapability: String, CaseIterable, Identifiable, Hashable {
         case .scheduleVsActual: "Scheduled vs actual start"
         }
     }
-
-    /// Why a head referee cares. Shown under the capability in Settings so the
-    /// choice of sources is an informed one.
-    var detail: String {
-        switch self {
-        case .matchSchedule: "Who is playing, and when"
-        case .liveMatchState: "Auto, teleop, timeout — drives the watch clock"
-        case .officialScores: "Final scores once posted"
-        case .queueStatus: "Which teams have not shown up yet"
-        case .teamNames: "Includes B-teams at offseasons"
-        case .teamAvatars: "Small icons beside team numbers"
-        case .robotPhotos: "Useful for identifying a robot you saw"
-        case .scheduleVsActual: "How far behind the event is running"
-        }
-    }
 }
 
 // MARK: - Sources
@@ -94,10 +79,10 @@ enum DataSourceKind: String, CaseIterable, Identifiable, Codable {
 
     var detail: String {
         switch self {
-        case .frcEvents: "Official schedule, scores and avatars"
-        case .cheesyArena: "Offseason field server on the local network"
-        case .frcNexus: "Queueing, and who is running late"
-        case .blueAlliance: "Mirrors frc.events, adds robot photos"
+        case .frcEvents: "Official source of schedule, scores and avatars"
+        case .cheesyArena: "Offseason FMS on the local network"
+        case .frcNexus: "Queueing data (if used at your event)"
+        case .blueAlliance: "Alternaitve to frc.events"
         }
     }
 
@@ -119,13 +104,13 @@ enum DataSourceKind: String, CaseIterable, Identifiable, Codable {
     var caveat: String? {
         switch self {
         case .frcEvents:
-            "Official events only, plus offseasons running HQ's field management system."
+            "Official events only, plus offseasons running FMS."
         case .cheesyArena:
             "Needs to be on the arena's network."
         case .frcNexus:
             nil
         case .blueAlliance:
-            "Pulls from frc.events at official events; offseasons need Cheesy Arena to write to it."
+            nil
         }
     }
 

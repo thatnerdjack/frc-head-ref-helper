@@ -123,7 +123,7 @@ struct ComposeSheet: View {
                             .contentShape(.rect)
                         }
                         .buttonStyle(.plain)
-                        .glassCard(selected ? .regular.tint(RefColor.gold.opacity(0.32))
+                        .glassCard(selected ? .regular.tint(RefColor.gold.opacity(0.32)).interactive()
                                             : .regular.interactive(),
                                    radius: RefRadius.control)
                     }
@@ -149,7 +149,7 @@ struct ComposeSheet: View {
                             .contentShape(.rect)
                         }
                         .buttonStyle(.plain)
-                        .glassCard(selected ? .regular.tint(RefColor.gold.opacity(0.32))
+                        .glassCard(selected ? .regular.tint(RefColor.gold.opacity(0.32)).interactive()
                                             : .regular.interactive(),
                                    radius: 18)
                     }
@@ -270,7 +270,7 @@ struct ComposeSheet: View {
             .contentShape(.rect)
         }
         .buttonStyle(.plain)
-        .glassCard(isSelected ? .regular.tint(RefColor.gold.opacity(0.34)) : .regular.interactive(),
+        .glassCard(isSelected ? .regular.tint(RefColor.gold.opacity(0.34)).interactive() : .regular.interactive(),
                    radius: RefRadius.control)
     }
 
@@ -282,9 +282,6 @@ struct ComposeSheet: View {
         return VStack(alignment: .leading, spacing: 0) {
             HStack(alignment: .firstTextBaseline) {
                 SectionLabel(text: "WHAT HAPPENED", opacity: 0.72)
-                Text(RuleCatalog.displayName(for: notebook.selectedRuleCode))
-                    .font(RefFont.numeric(12, .medium))
-                    .foregroundStyle(RefColor.goldText)
             }
             .padding(.bottom, 10)
 
@@ -307,7 +304,7 @@ struct ComposeSheet: View {
                         .contentShape(.rect)
                     }
                     .buttonStyle(.plain)
-                    .glassCard(selected ? .regular.tint(severity.color.opacity(0.45))
+                    .glassCard(selected ? .regular.tint(severity.color.opacity(0.45)).interactive()
                                         : .regular.interactive(),
                                radius: 18)
                 }

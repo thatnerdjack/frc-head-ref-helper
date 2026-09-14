@@ -66,30 +66,13 @@ struct DayCompleteScreen: View {
     private var statTiles: some View {
         GlassEffectContainer(spacing: 8) {
             HStack(spacing: 8) {
-                statTile(value: "\(notebook.qualsPlayed)", label: "Quals played", highlighted: false)
-                statTile(value: "\(notebook.entriesToday)", label: "Entries today", highlighted: false)
-                statTile(value: "\(notebook.cardsIssued)",
+                StatTile(value: "\(notebook.qualsPlayed)", label: "Quals played")
+                StatTile(value: "\(notebook.entriesToday)", label: "Entries today")
+                StatTile(value: "\(notebook.cardsIssued)",
                          label: notebook.cardsIssued == 1 ? "Card issued" : "Cards issued",
-                         highlighted: notebook.cardsIssued > 0)
+                         isHighlighted: notebook.cardsIssued > 0)
             }
         }
-    }
-
-    private func statTile(value: String, label: String, highlighted: Bool) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(value)
-                .font(RefFont.numeric(30, .semibold))
-                .foregroundStyle(highlighted ? RefColor.goldPale : .white)
-            Text(label)
-                .font(RefFont.text(12, .medium))
-                .foregroundStyle(.white.opacity(highlighted ? 0.8 : 0.68))
-                .fixedSize(horizontal: false, vertical: true)
-        }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.horizontal, 14)
-        .padding(.vertical, 16)
-        .glassCard(highlighted ? .regular.tint(RefColor.gold.opacity(0.26)) : .regular,
-                   radius: RefRadius.card)
     }
 
     private func carryRow(_ team: Team) -> some View {
