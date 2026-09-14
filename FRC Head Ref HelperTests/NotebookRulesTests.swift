@@ -526,3 +526,28 @@ func unfiledEntriesAreAdoptedOnUpgrade() throws {
     #expect(notebook.entries.allSatisfy { $0.eventKey == notebook.eventCode.tbaKey })
     #expect(notebook.badge(for: "8341").text == "2 WARNINGS")
 }
+
+#if os(iOS)
+@MainActor
+@Test("The Live Activity countdown never points into the past")
+func countdownEndIsNeverInThePast() throws {
+    // Both widget surfaces build `Date.now...end`, and ClosedRange
+    // preconditions lower <= upper — so a countdown end in the past is not a
+    // cosmetic glitch, it is a hard crash in the extension.
+    //
+    // This is reachable on a stock launch, not a contrived state: the sample
+    // schedule is built once at init and nothing ever marks a match played, so
+    // every remaining scheduled start eventually falls behind the clock.
+    let notebook = try makeNotebook(with: [])
+    notebook.schedule = notebook.schedule.map { match in
+        var shifted = match
+        shifted.scheduledStart = match.scheduledStart?.addingTimeInterval(-3600)
+        shifted.actualStart = match.actualStart?.addingTimeInterval(-3600)
+        return shifted
+    }
+
+    if let end = notebook.liveActivityState.countdownEnd {
+        #expect(end > .now)
+    }
+}
+#endif

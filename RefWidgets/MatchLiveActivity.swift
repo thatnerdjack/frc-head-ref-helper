@@ -99,7 +99,10 @@ struct MinimalCountdown: View {
     let tint: Color
 
     var body: some View {
-        if let end = state.countdownEnd {
+        // `end > .now` is not redundant with the app's own guard: ActivityKit
+        // replays the last persisted ContentState, which can outlive both the
+        // app process and the build that wrote it.
+        if let end = state.countdownEnd, end > .now {
             ProgressView(timerInterval: Date.now...end, countsDown: true) {
                 EmptyView()
             } currentValueLabel: {
@@ -125,7 +128,7 @@ struct CountdownText: View {
     let state: MatchActivityAttributes.ContentState
 
     var body: some View {
-        if let end = state.countdownEnd {
+        if let end = state.countdownEnd, end > .now {
             Text(timerInterval: Date.now...end, countsDown: true)
                 .multilineTextAlignment(.center)
         } else {
