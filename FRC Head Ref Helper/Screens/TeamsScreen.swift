@@ -71,6 +71,8 @@ struct TeamsScreen: View {
         let badge = notebook.badge(for: team.number)
         return NavigationLink(value: team.number) {
             HStack(spacing: 14) {
+                TeamAvatarView(team: team.number)
+
                 Text(team.number)
                     .font(RefFont.numeric(24, .semibold))
                     .foregroundStyle(.white)
