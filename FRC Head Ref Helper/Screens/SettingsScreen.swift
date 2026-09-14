@@ -19,6 +19,10 @@ struct SettingsScreen: View {
     @Environment(Notebook.self) private var notebook
     @FocusState private var eventCodeFocused: Bool
 
+    /// Injectable so a preview or a test can hand in the in-memory store —
+    /// Keychain access from a test bundle is entitlement-flaky.
+    var credentialStore: any CredentialStoring = KeychainCredentialStore()
+
     var body: some View {
         @Bindable var notebook = notebook
 
@@ -26,6 +30,7 @@ struct SettingsScreen: View {
             eventSection
             sourcesSection
             coverageSection
+            credentialsSection
 
             Section("Notebook") {
                 Toggle("Escalation hints", isOn: $notebook.escalationHintsEnabled)
@@ -39,7 +44,7 @@ struct SettingsScreen: View {
                 NavigationLink("Cheesy Arena connection", value: Notebook.SettingsRoute.arena)
             } footer: {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Entries stay on your decice. Nothing is sent to the arena.")
+                    Text("Entries stay on your device. Nothing is sent to the arena.")
                     // Which manual these rules came from. A referee needs to
                     // know this before trusting a rule number.
                     Text("Rules current as of \(RuleCatalog.manualVersion).")
@@ -52,6 +57,28 @@ struct SettingsScreen: View {
         .background(FieldBackdrop())
         .navigationTitle("Settings")
         .tint(RefColor.gold)
+    }
+
+    // MARK: - Credentials
+
+    /// Keys for the three authenticated sources.
+    ///
+    /// A stored key is never shown again, not even masked — the row says
+    /// "Saved" and offers to replace or clear it. A referee may be holding a
+    /// credential that belongs to the whole team, and a screen that reads it
+    /// back is a screen that leaks it to whoever is standing in the pits.
+    @ViewBuilder
+    private var credentialsSection: some View {
+        Section {
+            ForEach(CredentialService.allCases) { service in
+                CredentialRow(service: service, store: credentialStore)
+            }
+        } header: {
+            Text("API keys")
+        } footer: {
+            Text("Stored in the keychain on this device only, and never synced. "
+                 + "Cheesy Arena needs no key — it is on the field network.")
+        }
     }
 
     // MARK: - Event
