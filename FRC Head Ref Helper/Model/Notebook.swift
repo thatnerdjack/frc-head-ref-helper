@@ -77,6 +77,12 @@ final class Notebook {
     var teamsPath: [String] = []
     var settingsPath: [SettingsRoute] = []
 
+    /// The watch's own stack. Separate from `teamsPath` because the watch was
+    /// pushing onto the phone's Teams tab: opening a team on the wrist left the
+    /// phone sitting on that team's page, and popping on one device popped the
+    /// other. Two screens, two histories.
+    var watchPath: [String] = []
+
     /// The team or alliance whose page is open, and the default subject when
     /// the compose sheet is raised.
     var selectedSubject: String?
