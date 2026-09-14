@@ -32,7 +32,7 @@ import Foundation
 // MARK: - Capabilities
 
 /// A discrete thing the app needs to know, which some sources can answer.
-enum SourceCapability: String, CaseIterable, Identifiable, Hashable {
+enum SourceCapability: String, CaseIterable, Identifiable, Hashable, Sendable {
     case matchSchedule
     case liveMatchState
     case officialScores
@@ -60,7 +60,7 @@ enum SourceCapability: String, CaseIterable, Identifiable, Hashable {
 
 // MARK: - Sources
 
-enum DataSourceKind: String, CaseIterable, Identifiable, Codable {
+enum DataSourceKind: String, CaseIterable, Identifiable, Codable, Sendable {
     case frcEvents
     case cheesyArena
     case frcNexus
@@ -168,7 +168,7 @@ final class SourceConfiguration {
 ///
 /// Mirrors `MatchState` in Team254/cheesy-arena `field/arena.go`. Kept in the
 /// same order as the Go enum so the raw integer maps straight across.
-enum ArenaMatchState: Int, CaseIterable, Codable {
+enum ArenaMatchState: Int, CaseIterable, Codable, Sendable {
     case preMatch = 0
     case startMatch
     case autoPeriod

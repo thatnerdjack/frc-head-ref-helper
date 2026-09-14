@@ -21,7 +21,7 @@ import SwiftUI
 /// The Blue Alliance uses a season-prefixed key (`2026cada`); frc.events takes
 /// the season and the bare code separately (`2026` + `CADA`). Both are the same
 /// event, so this parses either and can emit both.
-struct EventCode: Hashable, Codable {
+struct EventCode: Hashable, Codable, Sendable {
     let season: Int
     /// Lowercase, no season prefix.
     let code: String
@@ -58,7 +58,7 @@ struct EventCode: Hashable, Codable {
     }
 }
 
-struct RefEvent: Identifiable, Hashable {
+struct RefEvent: Identifiable, Hashable, Sendable {
     let code: EventCode
     let name: String
     let when: String
@@ -69,7 +69,7 @@ struct RefEvent: Identifiable, Hashable {
 
 // MARK: - Teams and alliances
 
-struct Team: Identifiable, Hashable {
+struct Team: Identifiable, Hashable, Sendable {
     let number: String
     let name: String
 
@@ -80,7 +80,7 @@ struct Team: Identifiable, Hashable {
     var id: String { number }
 }
 
-struct Alliance: Identifiable, Hashable {
+struct Alliance: Identifiable, Hashable, Sendable {
     let seed: Int
     let teams: [String]
 
@@ -100,7 +100,7 @@ enum AllianceColor {
 
 // MARK: - Matches
 
-enum MatchLevel: String, Codable, Hashable {
+enum MatchLevel: String, Codable, Hashable, Sendable {
     case practice, qualification, playoff
 
     var prefix: String {
@@ -115,7 +115,7 @@ enum MatchLevel: String, Codable, Hashable {
 /// Identifies one PLAY of a match. `play` is 1 for the first running and
 /// increments on each replay, so a replayed Q41 is a distinct key from the
 /// original and entries never silently merge across them.
-struct MatchKey: Hashable, Codable {
+struct MatchKey: Hashable, Codable, Sendable {
     let level: MatchLevel
     let number: Int
     var play: Int = 1
@@ -134,7 +134,7 @@ struct MatchKey: Hashable, Codable {
 
 /// Where a match is in the queueing pipeline. FRC Nexus is the source that
 /// actually knows this, and it is the thing a head ref is asked about most.
-enum QueueStatus: String, Codable, CaseIterable {
+enum QueueStatus: String, Codable, CaseIterable, Sendable {
     case notQueued, queuing, queued, onDeck, onField, played
 
     var label: String {
@@ -159,7 +159,7 @@ enum QueueStatus: String, Codable, CaseIterable {
     }
 }
 
-struct Match: Identifiable, Hashable {
+struct Match: Identifiable, Hashable, Sendable {
     let key: MatchKey
     let red: [String]
     let blue: [String]
@@ -198,7 +198,7 @@ struct Match: Identifiable, Hashable {
 /// Derived, never set by hand: the field software already knows, because it
 /// knows what match is about to be played. A playoff match on the field means
 /// alliances exist, which is the only thing this actually gates.
-enum EventPhase: String {
+enum EventPhase: String, Sendable {
     case qualification, playoff
 
     var label: String {
@@ -221,7 +221,7 @@ enum EventPhase: String {
 
 // MARK: - Match sources for display
 
-struct ArenaServer: Identifiable, Hashable {
+struct ArenaServer: Identifiable, Hashable, Sendable {
     let address: String
     let detail: String
     let isReachable: Bool
