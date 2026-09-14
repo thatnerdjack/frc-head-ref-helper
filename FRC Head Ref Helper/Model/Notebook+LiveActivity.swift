@@ -51,14 +51,24 @@ extension Notebook {
     /// whole reason the widget ticks itself — never matched. The result was
     /// an ActivityKit push every second, all day.
     private var countdownEnd: Date? {
+        let end: Date?
         if fieldState == .paused || arenaState?.isTimeout == true {
-            return timeoutEndsAt
+            end = timeoutEndsAt
+        } else if isMatchRunning, matchSecondsRemaining != nil,
+                  let started = currentMatch?.actualStart {
+            end = started.addingTimeInterval(Self.matchLength)
+        } else {
+            end = nextMatch?.scheduledStart
         }
-        if isMatchRunning, matchSecondsRemaining != nil,
-           let started = currentMatch?.actualStart {
-            return started.addingTimeInterval(Self.matchLength)
-        }
-        return nextMatch?.scheduledStart
+
+        // A countdown that has already run out is not a countdown, and handing
+        // one to the widget is not a cosmetic problem: both Live Activity
+        // surfaces build `Date.now...end`, and `ClosedRange` preconditions
+        // lower <= upper, so a past date traps and takes the extension down.
+        // Nil is already the "nothing is timed" case the widget draws, so this
+        // degrades to the honest state rather than inventing a clock.
+        guard let end, end > now else { return nil }
+        return end
     }
 
     func syncLiveActivity() {
