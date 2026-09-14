@@ -82,7 +82,7 @@ enum DataSourceKind: String, CaseIterable, Identifiable, Codable {
         case .frcEvents: "Official source of schedule, scores and avatars"
         case .cheesyArena: "Offseason FMS on the local network"
         case .frcNexus: "Queueing data (if used at your event)"
-        case .blueAlliance: "Alternaitve to frc.events"
+        case .blueAlliance: "Alternative to frc.events"
         }
     }
 
@@ -98,6 +98,38 @@ enum DataSourceKind: String, CaseIterable, Identifiable, Codable {
         case .blueAlliance:
             [.matchSchedule, .teamNames, .robotPhotos, .officialScores]
         }
+    }
+
+    /// What this source is actually allowed to answer, given everything else
+    /// that is switched on right now.
+    ///
+    /// The one rule so far: when Cheesy Arena is enabled, frc.events serves
+    /// *only* team avatars. Cheesy Arena IS the field at an offseason. While it
+    /// is running, frc.events is describing a different event entirely, or a
+    /// stale copy of this one — its schedule, its scores and its team list all
+    /// belong to somewhere else. Avatars are the exception because they are
+    /// season-wide team data: they cannot disagree with the field.
+    ///
+    /// Deliberately kept out of `preferenceOrder(for:)`. That ranking is a
+    /// constant — the fixed opinion about which source is *better* at a thing.
+    /// This is a policy about what happens to be *true at this event*, and it
+    /// moves whenever a toggle moves. Keeping them apart is what lets Settings
+    /// say "here is the ranking, and here is why the winner was skipped."
+    func servedCapabilities(given enabled: Set<DataSourceKind>) -> Set<SourceCapability> {
+        if self == .frcEvents && enabled.contains(.cheesyArena) {
+            return capabilities.intersection([.teamAvatars])
+        }
+        return capabilities
+    }
+
+    /// Why this source is being skipped for most things, in one sentence a head
+    /// ref can read at 7am. A source that silently drops out is a source that
+    /// gets debugged on the field instead of in the parking lot.
+    func restrictionNote(given enabled: Set<DataSourceKind>) -> String? {
+        if self == .frcEvents && enabled.contains(.cheesyArena) {
+            return "Cheesy Arena is the field, so frc.events is used for team avatars only."
+        }
+        return nil
     }
 
     /// Caveat shown in Settings, so nobody is surprised at an offseason.
@@ -151,8 +183,29 @@ final class SourceConfiguration {
 
     /// The source that will actually answer this capability, or nil if nothing
     /// enabled can.
+    ///
+    /// Two filters, in this order: the source has to be switched on, and it has
+    /// to still be *allowed* to answer this given everything else that is on.
+    /// The second one is what keeps a stale frc.events schedule from quietly
+    /// overriding the arena that is running the matches.
     func provider(for capability: SourceCapability) -> DataSourceKind? {
-        DataSourceKind.preferenceOrder(for: capability).first { enabled.contains($0) }
+        DataSourceKind.preferenceOrder(for: capability).first { source in
+            enabled.contains(source)
+                && source.servedCapabilities(given: enabled).contains(capability)
+        }
+    }
+
+    /// Why a higher-ranked enabled source isn't the one answering this, if one
+    /// was passed over. Nil when nothing was skipped, so Settings only explains
+    /// itself when there is something to explain.
+    func restrictionNote(for capability: SourceCapability) -> String? {
+        for source in DataSourceKind.preferenceOrder(for: capability) where enabled.contains(source) {
+            // The first enabled source in the ranking either wins outright…
+            if source.servedCapabilities(given: enabled).contains(capability) { return nil }
+            // …or it was skipped, and owes the user a reason.
+            if let note = source.restrictionNote(given: enabled) { return note }
+        }
+        return nil
     }
 
     /// Capabilities no enabled source can serve — surfaced in Settings so the
