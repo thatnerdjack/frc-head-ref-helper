@@ -41,6 +41,8 @@ struct TeamDetailScreen: View {
 
                 statTiles.padding(.bottom, 14)
 
+                RobotPhotoStrip(team: subject)
+
                 if let hint = notebook.escalationHint(for: subject) {
                     escalationCard(hint).padding(.bottom, 20)
                 }

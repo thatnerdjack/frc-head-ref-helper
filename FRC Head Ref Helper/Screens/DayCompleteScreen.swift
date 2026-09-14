@@ -79,7 +79,7 @@ struct DayCompleteScreen: View {
         let badge = notebook.badge(for: team.number)
         return NavigationLink(value: team.number) {
             HStack(spacing: 12) {
-                TeamLogoPlaceholder()
+                TeamAvatarView(team: team.number)
                 Text(team.number)
                     .font(RefFont.numeric(22, .semibold))
                     .foregroundStyle(.white)
