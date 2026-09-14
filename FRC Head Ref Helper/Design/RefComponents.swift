@@ -111,7 +111,12 @@ struct StatTile: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.horizontal, 14)
         .padding(.vertical, 16)
-        .frame(maxHeight: .infinity)
+        // Top-aligned, not centred. The tiles are equal height, but a label
+        // that wraps to two lines ("Verbal warnings" does, "Cards" does not)
+        // makes that tile's content taller — and centring then pushes its
+        // NUMBER out of line with its neighbours by the difference. A row of
+        // counters whose digits do not share a baseline reads as broken.
+        .frame(maxHeight: .infinity, alignment: .top)
         .glassCard(isHighlighted ? .regular.tint(RefColor.gold.opacity(0.26)) : .regular,
                    radius: RefRadius.card)
     }
