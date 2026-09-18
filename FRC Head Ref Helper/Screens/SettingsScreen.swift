@@ -39,6 +39,7 @@ struct SettingsScreen: View {
             }
 
             exportSection
+            attributionSection
 
             Section {
                 NavigationLink("Cheesy Arena connection", value: Notebook.SettingsRoute.arena)
@@ -61,23 +62,69 @@ struct SettingsScreen: View {
 
     // MARK: - Credentials
 
-    /// Keys for the three authenticated sources.
+    /// One `SecureField` per source, and nothing else.
     ///
-    /// A stored key is never shown again, not even masked — the row says
-    /// "Saved" and offers to replace or clear it. A referee may be holding a
-    /// credential that belongs to the whole team, and a screen that reads it
-    /// back is a screen that leaks it to whoever is standing in the pits.
+    /// An earlier version had an edit/save/cancel state machine per row so a
+    /// stored key was never redisplayed. That was more machinery than the
+    /// problem deserves: `SecureField` already masks its contents, which is the
+    /// same protection Settings gives a Wi-Fi password, and the rest was a
+    /// custom control where the platform has one.
     @ViewBuilder
     private var credentialsSection: some View {
         Section {
             ForEach(CredentialService.allCases) { service in
-                CredentialRow(service: service, store: credentialStore)
+                LabeledContent(service.label) {
+                    SecureField(service.hint, text: binding(for: service))
+                        .multilineTextAlignment(.trailing)
+                        .textContentType(.password)
+                        .textInputAutocapitalization(.never)
+                        .autocorrectionDisabled()
+                }
             }
         } header: {
             Text("API keys")
         } footer: {
-            Text("Stored in the keychain on this device only, and never synced. "
-                 + "Cheesy Arena needs no key — it is on the field network.")
+            Text("Stored in the keychain and synced to your other devices via "
+                 + "iCloud Keychain. Cheesy Arena takes the field laptop's admin "
+                 + "password.")
+        }
+    }
+
+    /// Reads through to the keychain and writes back on every edit.
+    ///
+    /// Writing per keystroke rather than on submit is deliberate: a referee who
+    /// types a key and swipes away without hitting return should not silently
+    /// lose it, and a keychain write for four short strings costs nothing.
+    private func binding(for service: CredentialService) -> Binding<String> {
+        Binding(
+            get: { (try? credentialStore.token(for: service)) ?? "" },
+            set: { try? credentialStore.setToken($0, for: service) }
+        )
+    }
+
+    // MARK: - Attribution
+
+    /// Required by the sources' terms, not decoration.
+    ///
+    /// FIRST's API Terms of Use require "Event Data provided by FIRST" linking
+    /// to their API page, and for a mobile app allow that to live in an About
+    /// or Info section — which is what this screen is. The Blue Alliance
+    /// requires "Powered by The Blue Alliance" linking back to the site, and
+    /// separately forbids using their name, "TBA", or the lamp logo in an app's
+    /// own branding, which this app does not.
+    private var attributionSection: some View {
+        Section {
+            Link("Event Data provided by FIRST",
+                 destination: URL(string: "https://frc-events.firstinspires.org/services/API")!)
+            Link("Powered by The Blue Alliance",
+                 destination: URL(string: "https://www.thebluealliance.com")!)
+            Link("Queueing data from Nexus for FRC",
+                 destination: URL(string: "https://frc.nexus")!)
+        } header: {
+            Text("Data sources")
+        } footer: {
+            Text("This app is not affiliated with or endorsed by FIRST, "
+                 + "The Blue Alliance, or Nexus.")
         }
     }
 

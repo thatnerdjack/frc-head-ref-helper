@@ -2,16 +2,15 @@
 //  CredentialStore.swift
 //  FRC Head Ref Helper
 //
-//  API keys for the three authenticated sources.
+//  Credentials for the four authenticated sources.
 //
-//  Cheesy Arena is deliberately absent: it is an unauthenticated server on the
-//  local field network, and giving it a credential slot would imply otherwise.
+//  Three take a key in a header; Cheesy Arena takes an admin password at
+//  POST /login and answers with a session cookie.
 //
-//  Nothing here ever logs a token, and the UI never redisplays one — a stored
-//  key reads as "Saved" and nothing more. A head referee may well be using a
-//  key that belongs to the whole team, and a screen that will happily show it
-//  back is a screen that leaks it to whoever is looking over their shoulder in
-//  the pits.
+//  Nothing here ever logs a token. The UI shows a stored value through a
+//  `SecureField`, so it is masked on screen the same way Settings masks a
+//  Wi-Fi password — enough for a phone held in a pit, without a bespoke
+//  never-redisplay control to maintain.
 //
 
 import Foundation
@@ -19,7 +18,7 @@ import Security
 
 // MARK: - Services
 
-/// The authenticated sources, and how each one carries its key.
+/// The authenticated sources, and how each one proves who it is.
 nonisolated enum CredentialService: String, CaseIterable, Sendable, Identifiable {
     /// Sent as HTTP Basic, so the stored value is the whole "username:token"
     /// pair FIRST hands out rather than a bare token.
@@ -28,6 +27,14 @@ nonisolated enum CredentialService: String, CaseIterable, Sendable, Identifiable
     case blueAlliance
     /// Sent as the `Nexus-Api-Key` header.
     case frcNexus
+    /// The arena's admin password.
+    ///
+    /// Unlike the other three this is not a header. Cheesy Arena authenticates
+    /// the `admin` user at `POST /login` and hands back a `session_token`
+    /// cookie, which URLSession then carries automatically. Storing it here
+    /// keeps every secret in one place rather than leaving this one in a
+    /// settings field.
+    case cheesyArena
 
     var id: String { rawValue }
 
@@ -36,6 +43,7 @@ nonisolated enum CredentialService: String, CaseIterable, Sendable, Identifiable
         case .frcEvents: "frc.events"
         case .blueAlliance: "The Blue Alliance"
         case .frcNexus: "FRC Nexus"
+        case .cheesyArena: "Cheesy Arena"
         }
     }
 
@@ -45,16 +53,7 @@ nonisolated enum CredentialService: String, CaseIterable, Sendable, Identifiable
         case .frcEvents: "username:token"
         case .blueAlliance: "Read API key"
         case .frcNexus: "API key"
-        }
-    }
-
-    /// Where to get one. Shown as text rather than a link: a referee setting
-    /// this up is on a laptop, not tapping through on the phone mid-event.
-    var source: String {
-        switch self {
-        case .frcEvents: "frc-events.firstinspires.org/services/API"
-        case .blueAlliance: "thebluealliance.com/account"
-        case .frcNexus: "frc.nexus"
+        case .cheesyArena: "Admin password"
         }
     }
 
@@ -99,17 +98,17 @@ nonisolated enum CredentialError: Error, Equatable, CustomStringConvertible {
 
 /// The real store.
 ///
-/// `kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly` is two decisions:
+/// Items are `kSecAttrSynchronizable`, so a key entered on the phone appears on
+/// the iPad and the second phone signed into the same Apple Account. A head
+/// referee sets these up once, and iCloud Keychain is end-to-end encrypted, so
+/// the alternative — retyping a long token on every device, in a pit, before an
+/// event — buys nothing.
 ///
-/// *After first unlock* rather than *when unlocked*, because the app needs to
-/// reach frc.events from a background refresh with the phone in a pocket, which
-/// is the normal state of a phone at an event.
-///
-/// *This device only* — not `kSecAttrSynchronizable` — because these keys are
-/// frequently a team's shared credentials rather than a personal one. Syncing a
-/// shared key onto every device signed into the same Apple Account is a worse
-/// outcome than typing it twice. If that trade ever wants revisiting it is a
-/// one-line change here, and a deliberate one.
+/// `kSecAttrAccessibleAfterFirstUnlock` rather than `WhenUnlocked` because the
+/// app needs to reach frc.events from a background refresh with the phone in a
+/// pocket, which is the normal state of a phone at an event. The
+/// `ThisDeviceOnly` variants are deliberately not used — they are incompatible
+/// with synchronizable items.
 nonisolated struct KeychainCredentialStore: CredentialStoring {
 
     init() {}
@@ -163,7 +162,7 @@ nonisolated struct KeychainCredentialStore: CredentialStoring {
 
         var insert = Self.baseQuery(for: service)
         insert[kSecValueData as String] = data
-        insert[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        insert[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlock
         let addStatus = SecItemAdd(insert as CFDictionary, nil)
         guard addStatus == errSecSuccess else { throw CredentialError.keychain(addStatus) }
     }
@@ -173,6 +172,10 @@ nonisolated struct KeychainCredentialStore: CredentialStoring {
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: service.keychainService,
             kSecAttrAccount as String: service.rawValue,
+            // Must be on the query as well as the insert. A search that omits
+            // this defaults to non-synchronizable items only and would never
+            // find the key this device just synced down.
+            kSecAttrSynchronizable as String: true,
         ]
     }
 }

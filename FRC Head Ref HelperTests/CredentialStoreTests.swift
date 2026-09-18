@@ -71,10 +71,11 @@ func keychainServiceStringsAreDistinct() {
     #expect(names.allSatisfy { $0.hasPrefix("me.jackdoherty.FRC-Head-Ref-Helper.") })
 }
 
-@Test("Cheesy Arena has no credential slot")
-func arenaNeedsNoKey() {
-    // It is an unauthenticated server on the local field network. Giving it a
-    // slot would imply a key exists to be found.
-    #expect(CredentialService.allCases.count == 3)
-    #expect(CredentialService.allCases.map(\.rawValue).contains("cheesyArena") == false)
+@Test("Every source the app authenticates against has a slot")
+func everySourceHasASlot() {
+    // Cheesy Arena included: it authenticates the `admin` user at POST /login
+    // and answers with a session cookie, so its password is a credential like
+    // any other rather than a settings field.
+    #expect(Set(CredentialService.allCases.map(\.rawValue))
+            == ["frcEvents", "blueAlliance", "frcNexus", "cheesyArena"])
 }
