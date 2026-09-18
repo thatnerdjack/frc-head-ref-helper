@@ -71,6 +71,15 @@ func keychainServiceStringsAreDistinct() {
     #expect(names.allSatisfy { $0.hasPrefix("me.jackdoherty.FRC-Head-Ref-Helper.") })
 }
 
+@Test("The API keys section covers the header-key services and not the arena")
+func webAPIKeysExcludeTheArena() {
+    // The arena's password is entered on its own connection screen, next to
+    // the address. Listing it here as well would put one credential in two
+    // places.
+    #expect(CredentialService.webAPIKeys.contains(.cheesyArena) == false)
+    #expect(Set(CredentialService.webAPIKeys) == [.frcEvents, .blueAlliance, .frcNexus])
+}
+
 @Test("Every source the app authenticates against has a slot")
 func everySourceHasASlot() {
     // Cheesy Arena included: it authenticates the `admin` user at POST /login

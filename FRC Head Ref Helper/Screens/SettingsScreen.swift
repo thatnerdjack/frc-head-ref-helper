@@ -72,7 +72,10 @@ struct SettingsScreen: View {
     @ViewBuilder
     private var credentialsSection: some View {
         Section {
-            ForEach(CredentialService.allCases) { service in
+            // Cheesy Arena is deliberately absent: its password is not an API
+            // key, and it belongs on the Cheesy Arena connection screen next
+            // to the address a referee is already typing there.
+            ForEach(CredentialService.webAPIKeys) { service in
                 LabeledContent(service.label) {
                     SecureField(service.hint, text: binding(for: service))
                         .multilineTextAlignment(.trailing)
@@ -85,8 +88,8 @@ struct SettingsScreen: View {
             Text("API keys")
         } footer: {
             Text("Stored in the keychain and synced to your other devices via "
-                 + "iCloud Keychain. Cheesy Arena takes the field laptop's admin "
-                 + "password.")
+                 + "iCloud Keychain. Cheesy Arena's password is on its own "
+                 + "connection screen.")
         }
     }
 

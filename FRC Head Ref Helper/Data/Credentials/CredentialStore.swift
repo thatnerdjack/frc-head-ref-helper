@@ -57,6 +57,13 @@ nonisolated enum CredentialService: String, CaseIterable, Sendable, Identifiable
         }
     }
 
+    /// The three that take a key in a header, and are configured together in
+    /// Settings. Cheesy Arena is excluded — it is a login password, and it is
+    /// entered on the arena's own connection screen.
+    static var webAPIKeys: [CredentialService] {
+        allCases.filter { $0 != .cheesyArena }
+    }
+
     /// Keychain service string. Namespaced by bundle id so a second app on the
     /// same device can never collide with these.
     var keychainService: String {
