@@ -74,8 +74,8 @@ nonisolated enum LocalNetworkVerdict: Sendable, Equatable {
 ///
 /// An `actor` so it does not inherit the target's default `MainActor`
 /// isolation — this runs while the UI is showing a spinner.
-actor LocalNetworkProbe {
-    private let time: any TimeSource
+actor LocalNetworkProbe<C: Clock> where C.Duration == Duration {
+    private let clock: C
     /// Under this, a failure looks like the sandbox dropping the connection
     /// rather than the network losing it. A SYN to a genuinely absent host on
     /// the same subnet takes seconds to give up; a denial is immediate.
@@ -83,11 +83,11 @@ actor LocalNetworkProbe {
     private let timeout: TimeInterval
 
     init(
-        time: any TimeSource = SystemTimeSource(),
+        clock: C = ContinuousClock(),
         denialThreshold: TimeInterval = 1.0,
         timeout: TimeInterval = 5.0
     ) {
-        self.time = time
+        self.clock = clock
         self.denialThreshold = denialThreshold
         self.timeout = timeout
     }
@@ -98,9 +98,9 @@ actor LocalNetworkProbe {
             return .likelyServerUnreachable
         }
 
-        let started = time.monotonicSeconds
+        let started = clock.now
         let outcome = await connect(host: host, port: nwPort)
-        let elapsed = time.monotonicSeconds - started
+        let elapsed = started.duration(to: clock.now)
 
         switch outcome {
         case .connected:
@@ -116,12 +116,12 @@ actor LocalNetworkProbe {
 
     /// The heuristic, isolated so its reasoning is readable and so the
     /// platform carve-out is in exactly one place.
-    private func classifyFailure(host: String, elapsed: TimeInterval) -> LocalNetworkVerdict {
+    private func classifyFailure(host: String, elapsed: Duration) -> LocalNetworkVerdict {
         #if os(iOS)
         // The Local Network gate only exists for private destinations. A
         // public host failing says nothing about it.
         guard Self.isPrivateIPv4(host) else { return .likelyServerUnreachable }
-        return elapsed < denialThreshold ? .likelyPermissionDenied : .likelyServerUnreachable
+        return elapsed < .seconds(denialThreshold) ? .likelyPermissionDenied : .likelyServerUnreachable
         #else
         // watchOS, macOS and visionOS builds of this target do not put a
         // user-facing permission gate in front of local addresses, so there is
@@ -154,7 +154,7 @@ actor LocalNetworkProbe {
         let box = OnceBox()
         return await withTaskGroup(of: ConnectOutcome.self) { group in
             group.addTask { [timeout, time] in
-                try? await time.sleep(seconds: timeout)
+                try? await self.clock.sleep(for: .seconds(timeout))
                 return .failed
             }
             group.addTask {

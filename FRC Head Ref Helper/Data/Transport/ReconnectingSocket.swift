@@ -172,7 +172,7 @@ nonisolated struct NetworkPathMonitor: Sendable {
 /// An `actor` because the app target sets
 /// `SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor`; a supervisor that woke the UI
 /// thread on every frame would make the match timer stutter.
-actor ReconnectingSocket {
+actor ReconnectingSocket<C: Clock> where C.Duration == Duration {
     // MARK: Configuration
 
     /// How long the socket may be silent *during a running match* before we
@@ -188,7 +188,7 @@ actor ReconnectingSocket {
     private let url: URL
     private let headers: [String: String]
     private let transport: any WebSocketTransporting
-    private let time: any TimeSource
+    private let clock: C
     private let backoff: BackoffPolicy
     private let pathMonitor: NetworkPathMonitor?
 
@@ -213,9 +213,9 @@ actor ReconnectingSocket {
     private var connection: (any WebSocketConnection)?
 
     private var attempt = 0
-    private var connectedAtMonotonic: TimeInterval?
-    private var lastFrameMonotonic: TimeInterval = 0
-    private var lastPingMonotonic: TimeInterval = 0
+    private var connectedAt: C.Instant?
+    private var lastFrameAt: C.Instant?
+    private var lastPingAt: C.Instant?
     private var matchIsRunning = false
     private var lastPath: NetworkPathSnapshot = .unknown
     /// Why we are reconnecting, carried into `.waiting` so the UI can say
@@ -241,14 +241,14 @@ actor ReconnectingSocket {
         url: URL,
         headers: [String: String] = [:],
         transport: any WebSocketTransporting,
-        time: any TimeSource = SystemTimeSource(),
+        clock: C = ContinuousClock(),
         backoff: BackoffPolicy = BackoffPolicy(),
         pathMonitor: NetworkPathMonitor? = NetworkPathMonitor()
     ) {
         self.url = url
         self.headers = headers
         self.transport = transport
-        self.time = time
+        self.clock = clock
         self.backoff = backoff
         self.pathMonitor = pathMonitor
 
@@ -328,7 +328,7 @@ actor ReconnectingSocket {
         matchIsRunning = running
         // Entering a match with an already-stale timestamp would fire the
         // watchdog instantly, so treat the transition as fresh activity.
-        lastFrameMonotonic = time.monotonicSeconds
+        lastFrameAt = clock.now
     }
 
     var currentState: ConnectionState { state }
@@ -351,11 +351,11 @@ actor ReconnectingSocket {
             do {
                 let connection = try await transport.open(url, headers: headers)
                 self.connection = connection
-                let openedAt = time.monotonicSeconds
-                connectedAtMonotonic = openedAt
-                lastFrameMonotonic = openedAt
-                lastPingMonotonic = openedAt
-                state = .connected(since: time.now)
+                let openedAt = clock.now
+                connectedAt = openedAt
+                lastFrameAt = openedAt
+                lastPingAt = openedAt
+                state = .connected(since: Date())
 
                 // Consuming the frame stream blocks here until the connection
                 // ends, which is what makes this loop a supervisor.
@@ -375,7 +375,7 @@ actor ReconnectingSocket {
 
     private func consume(_ connection: any WebSocketConnection) async throws {
         for try await frame in connection.frames {
-            lastFrameMonotonic = time.monotonicSeconds
+            lastFrameAt = clock.now
             frameContinuation.yield(frame)
         }
     }
@@ -391,11 +391,11 @@ actor ReconnectingSocket {
         // Reset the ladder only if the connection actually held up. A socket
         // that connects and dies immediately must keep climbing, or we would
         // spin at 0.5s forever against a server that is refusing us.
-        if let connectedAtMonotonic,
-           time.monotonicSeconds - connectedAtMonotonic >= backoff.healthyResetAfter {
+        if let connectedAt,
+           connectedAt.duration(to: clock.now) >= .seconds(backoff.healthyResetAfter) {
             attempt = 0
         }
-        connectedAtMonotonic = nil
+        connectedAt = nil
     }
 
     /// The wait is a separate cancellable task so `handlePathChange` can end it
@@ -406,14 +406,14 @@ actor ReconnectingSocket {
         // don't overwrite it with a countdown the user can do nothing about.
         if state != .offline {
             state = .waiting(
-                retryAt: time.now.addingTimeInterval(seconds),
+                retryAt: Date().addingTimeInterval(seconds),
                 attempt: attempt,
                 reason: reason
             )
         }
         // The `Void` annotation matters: `try?` on a Void call yields `()?`,
         // which would make this a Task<()?, Never> and not match the property.
-        let task = Task<Void, Never> { [time] in try? await time.sleep(seconds: seconds) }
+        let task = Task<Void, Never> { [clock] in try? await clock.sleep(for: .seconds(seconds)) }
         pendingRetry = task
         await task.value
         pendingRetry = nil
@@ -443,19 +443,19 @@ actor ReconnectingSocket {
 
     private func runWatchdog() async {
         while !Task.isCancelled {
-            try? await time.sleep(seconds: watchdogTick)
+            try? await clock.sleep(for: .seconds(watchdogTick))
             guard !Task.isCancelled, state.isConnected, let connection else { continue }
 
-            let now = time.monotonicSeconds
+            let now = clock.now
             if matchIsRunning {
                 // Silence during a match is a zombie socket, full stop. Do not
                 // ping and hope — a ping that succeeds on a connection whose
                 // data has stopped would just extend the lie.
-                if now - lastFrameMonotonic > matchSilenceTimeout {
+                if let lastFrameAt, lastFrameAt.duration(to: now) > .seconds(matchSilenceTimeout) {
                     forceReconnect(reason: "No arena data for \(Int(matchSilenceTimeout))s during a match")
                 }
-            } else if now - lastPingMonotonic >= idlePingInterval {
-                lastPingMonotonic = now
+            } else if lastPingAt.map({ $0.duration(to: now) >= .seconds(idlePingInterval) }) ?? true {
+                lastPingAt = now
                 do {
                     try await connection.ping()
                 } catch {
