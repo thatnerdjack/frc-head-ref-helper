@@ -2,6 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<!-- Cheesy Arena serves plain http:// and ws:// on 10.0.100.5:8080. App
+	     Transport Security blocks cleartext by default, and it does so
+	     silently: the socket simply never connects and nothing is logged.
+	     NSAllowsLocalNetworking is the narrow exemption — it permits
+	     cleartext to local/private addresses only, and leaves ATS fully
+	     enforced for frc.events, The Blue Alliance and FRC Nexus, which are
+	     all HTTPS. Do not replace this with NSAllowsArbitraryLoads. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<!-- NSLocalNetworkUsageDescription is deliberately NOT here: it is set as
+	     INFOPLIST_KEY_NSLocalNetworkUsageDescription in project.pbxproj, and
+	     because this target builds with GENERATE_INFOPLIST_FILE = YES that
+	     build setting is merged into this file at build time. Declaring it in
+	     both places means the build setting silently overwrites whatever this
+	     file says, so the string here would be dead text that looks live.
+	     One home; that home is the build setting. -->
+	<!-- NSBonjourServices is intentionally absent — the app connects to a
+	     typed-in IP address, not via mDNS discovery. -->
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>UIBackgroundModes</key>
