@@ -4,12 +4,12 @@
 //
 //  The socket's own behaviour — not the platform's.
 //
-//  These run against a REAL websocket server on the loopback interface, built
-//  with `NetworkListener<WebSocket>`. There is no fake transport and no
-//  protocol seam, which is the point: the thing under test is a reconnect
-//  supervisor, and a reconnect supervisor tested against a stub that politely
-//  ends its stream on request is not tested at all. Here the server really
-//  hangs up, the socket really notices, and the handshake really re-runs.
+//  These run against a REAL websocket server on the loopback interface (see
+//  Support/FakeArena.swift). There is no fake transport and no protocol seam,
+//  which is the point: the thing under test is a reconnect supervisor, and a
+//  reconnect supervisor tested against a stub that politely ends its stream on
+//  request is not tested at all. Here the server really hangs up, the socket
+//  really notices, and the handshake really re-runs.
 //
 //  Loopback needs no Local Network permission, so this works on a simulator
 //  and in CI.
@@ -23,89 +23,6 @@ import Testing
 import Foundation
 import Network
 @testable import FRC_Head_Ref_Helper
-
-// MARK: - A real arena, small enough to fit in a test
-
-/// A websocket server on 127.0.0.1 that plays the part of Cheesy Arena.
-///
-/// Not an actor: the accept handler has to be able to sit on a connection for
-/// as long as a test wants without blocking calls like `connectionCount`, and
-/// actor isolation would serialise exactly those against each other. The only
-/// shared state is a counter, so a lock is both smaller and more honest here.
-private final class FakeArena: @unchecked Sendable {
-
-    enum ArenaError: Error {
-        /// The listener never reported a bound port.
-        case neverStarted
-    }
-
-    private let listener: NetworkListener<WebSocket>
-    private let script: [String]
-    /// Whether the server holds the connection open after saying its piece, or
-    /// hangs up the way a field server restarting does.
-    private let hangUpAfterScript: Bool
-    private let lock = NSLock()
-    private var acceptLoop: Task<Void, any Error>?
-    private var connections = 0
-
-    /// How many clients have been accepted. Two means the socket genuinely
-    /// dialled again, rather than the first connection having survived.
-    var connectionCount: Int { lock.withLock { connections } }
-
-    init(script: [String], hangUpAfterScript: Bool = false) throws {
-        self.script = script
-        self.hangUpAfterScript = hangUpAfterScript
-        // Port 0 lets the OS pick a free one, so tests cannot collide.
-        listener = try NetworkListener(
-            using: NWParametersBuilder.parameters { WebSocket { TCP() } }
-                .localPort(.any)
-        )
-        // Without this the listener accepts nothing, which looks from the
-        // client's side like a connection reset immediately after the TCP
-        // handshake.
-        listener.newConnectionLimit = Int.max
-    }
-
-    /// Starts listening and returns the URL to point a socket at.
-    ///
-    /// The port is polled for rather than read straight after construction: the
-    /// listener is not bound until `run` has actually started it, and until
-    /// then `port` reads back as 0 rather than nil. Treating that 0 as a real
-    /// port is a silent way to spend ten seconds connecting to nothing.
-    func start() async throws -> URL {
-        let loop = Task {
-            try await listener.run { connection in
-                self.lock.withLock { self.connections += 1 }
-                for line in self.script {
-                    try? await connection.send(line)
-                }
-                if self.hangUpAfterScript {
-                    try? await connection.close()
-                } else {
-                    // Hold it open. The test decides when this connection dies,
-                    // and a handler that returned early would close it.
-                    try? await Task.sleep(for: .seconds(60))
-                }
-            }
-        }
-        lock.withLock { acceptLoop = loop }
-
-        for _ in 0..<300 {
-            if let port = listener.port?.rawValue, port != 0 {
-                return URL(string: "ws://127.0.0.1:\(port)")!
-            }
-            try await Task.sleep(for: .milliseconds(10))
-        }
-        throw ArenaError.neverStarted
-    }
-
-    func stop() {
-        lock.withLock {
-            acceptLoop?.cancel()
-            acceptLoop = nil
-        }
-    }
-}
 
 // MARK: - Helpers
 
@@ -156,6 +73,13 @@ private func awaitFirstMessage(
     }
 }
 
+private extension ArenaSocket.Status {
+    var isConnected: Bool {
+        if case .connected = self { return true }
+        return false
+    }
+}
+
 // MARK: - Tests
 
 // `.serialized` because each test binds a real listening socket and runs a real
@@ -164,9 +88,7 @@ private func awaitFirstMessage(
 @Suite("Arena socket", .serialized)
 struct ArenaSocketTests {
 
-    @Test("Connects to a real server and delivers its messages", .disabled("""
-        Blocked on the test harness, not on ArenaSocket. NetworkListener<WebSocket> never invokes its accept handler on loopback — connectionCount stays 0 and the client sees ECONNRESET straight after the TCP handshake, which points at the server-side websocket upgrade never completing. Tried: waiting for a genuinely bound port (it reads back as 0 until the listener starts), newConnectionLimit, and dropping localOnly. Next thing to try is building the test server with the legacy NWListener + NWProtocolWebSocket.Options.setClientRequestHandler, which is the documented way to accept an upgrade. Everything these cover is still unverified.
-        """))
+    @Test("Connects to a real server and delivers its messages")
     func deliversMessages() async throws {
         let arena = try FakeArena(script: [#"{"matchState":2}"#])
         let url = try await arena.start()
@@ -178,6 +100,7 @@ struct ArenaSocketTests {
 
         #expect(try await awaitFirstMessage(from: socket) == #"{"matchState":2}"#)
         #expect(await socket.currentStatus.isConnected)
+        #expect(arena.connectionCount == 1)
     }
 
     @Test("Reports a reason when nothing is listening, and keeps trying")
@@ -210,13 +133,11 @@ struct ArenaSocketTests {
         }
     }
 
-    @Test("Reconnects when the field server hangs up", .disabled("""
-        Blocked on the test harness, not on ArenaSocket. NetworkListener<WebSocket> never invokes its accept handler on loopback — connectionCount stays 0 and the client sees ECONNRESET straight after the TCP handshake, which points at the server-side websocket upgrade never completing. Tried: waiting for a genuinely bound port (it reads back as 0 until the listener starts), newConnectionLimit, and dropping localOnly. Next thing to try is building the test server with the legacy NWListener + NWProtocolWebSocket.Options.setClientRequestHandler, which is the documented way to accept an upgrade. Everything these cover is still unverified.
-        """))
+    @Test("Reconnects when the field server hangs up")
     func reconnectsAfterServerHangsUp() async throws {
         // Cheesy Arena restarting between matches, reproduced: the server
         // accepts, says its piece and closes.
-        let arena = try FakeArena(script: [#"{"matchState":0}"#], hangUpAfterScript: true)
+        let arena = try FakeArena(script: [#"{"matchState":0}"#], behaviour: .hangUp)
         let url = try await arena.start()
         defer { arena.stop() }
 
@@ -231,13 +152,11 @@ struct ArenaSocketTests {
         _ = try await awaitStatus(from: socket) {
             if case .connecting(let attempt) = $0 { attempt >= 2 } else { false }
         }
-        try await Task.sleep(for: .milliseconds(300))
+        try await Task.sleep(for: .milliseconds(500))
         #expect(arena.connectionCount >= 2)
     }
 
-    @Test("Silence during a match is treated as a dead socket", .disabled("""
-        Blocked on the test harness, not on ArenaSocket. NetworkListener<WebSocket> never invokes its accept handler on loopback — connectionCount stays 0 and the client sees ECONNRESET straight after the TCP handshake, which points at the server-side websocket upgrade never completing. Tried: waiting for a genuinely bound port (it reads back as 0 until the listener starts), newConnectionLimit, and dropping localOnly. Next thing to try is building the test server with the legacy NWListener + NWProtocolWebSocket.Options.setClientRequestHandler, which is the documented way to accept an upgrade. Everything these cover is still unverified.
-        """))
+    @Test("Silence during a match is treated as a dead socket")
     func silenceDuringAMatchForcesAReconnect() async throws {
         // The server connects, says nothing, and holds the socket open — which
         // from TCP's point of view is a perfectly healthy connection. This is
@@ -249,7 +168,7 @@ struct ArenaSocketTests {
 
         let socket = ArenaSocket(
             url: url,
-            matchSilenceTimeout: .milliseconds(200),
+            matchSilenceTimeout: .milliseconds(300),
             retryCap: .milliseconds(50)
         )
         await socket.start()
@@ -268,9 +187,7 @@ struct ArenaSocketTests {
         #expect(reason.contains("No arena data"))
     }
 
-    @Test("Silence outside a match is left alone", .disabled("""
-        Blocked on the test harness, not on ArenaSocket. NetworkListener<WebSocket> never invokes its accept handler on loopback — connectionCount stays 0 and the client sees ECONNRESET straight after the TCP handshake, which points at the server-side websocket upgrade never completing. Tried: waiting for a genuinely bound port (it reads back as 0 until the listener starts), newConnectionLimit, and dropping localOnly. Next thing to try is building the test server with the legacy NWListener + NWProtocolWebSocket.Options.setClientRequestHandler, which is the documented way to accept an upgrade. Everything these cover is still unverified.
-        """))
+    @Test("Silence outside a match is left alone")
     func silenceOutsideAMatchIsNormal() async throws {
         // Between matches the arena genuinely has nothing to say. Dropping a
         // healthy socket here would mean reconnecting every few seconds all day
@@ -284,16 +201,9 @@ struct ArenaSocketTests {
         defer { Task { await socket.stop() } }
 
         _ = try await awaitStatus(from: socket) { $0.isConnected }
-        try await Task.sleep(for: .milliseconds(600))
+        try await Task.sleep(for: .milliseconds(700))
 
         #expect(await socket.currentStatus.isConnected)
         #expect(arena.connectionCount == 1)
-    }
-}
-
-private extension ArenaSocket.Status {
-    var isConnected: Bool {
-        if case .connected = self { return true }
-        return false
     }
 }
