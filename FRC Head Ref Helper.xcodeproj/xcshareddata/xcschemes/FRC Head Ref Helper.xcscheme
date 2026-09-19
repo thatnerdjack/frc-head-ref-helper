@@ -15,6 +15,9 @@
          <TestableReference skipped = "NO" parallelizable = "YES">
             <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="DAFA2DC33055D11B00E37AAC" BuildableName="FRC Head Ref HelperTests.xctest" BlueprintName="FRC Head Ref HelperTests" ReferencedContainer="container:FRC Head Ref Helper.xcodeproj" />
          </TestableReference>
+         <TestableReference skipped = "NO" parallelizable = "YES">
+            <BuildableReference BuildableIdentifier="primary" BlueprintIdentifier="DAFA2DCD3055D11B00E37AAC" BuildableName="FRC Head Ref HelperUITests.xctest" BlueprintName="FRC Head Ref HelperUITests" ReferencedContainer="container:FRC Head Ref Helper.xcodeproj" />
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction buildConfiguration = "Debug"
