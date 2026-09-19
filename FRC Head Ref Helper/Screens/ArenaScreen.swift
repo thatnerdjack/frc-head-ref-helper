@@ -17,6 +17,10 @@ import SwiftUI
 struct ArenaScreen: View {
     @Environment(Notebook.self) private var notebook
 
+    /// Injectable so a preview or test can hand in the in-memory store —
+    /// Keychain access from a test bundle is entitlement-flaky.
+    var credentialStore: any CredentialStoring = KeychainCredentialStore()
+
     var body: some View {
         @Bindable var notebook = notebook
 
@@ -33,6 +37,14 @@ struct ArenaScreen: View {
                         .font(RefFont.numeric(14, .medium))
                         .foregroundStyle(.secondary)
                 }
+
+                // The arena's admin password lives here rather than with the web
+                // API keys. It is not an API key: Cheesy Arena authenticates
+                // the `admin` user at POST /login and answers with a session
+                // cookie. More to the point, this is the screen a referee opens
+                // to reach the field, so this is where they look for it.
+                CredentialField(service: .cheesyArena, store: credentialStore,
+                                prompt: "Admin password")
 
                 Button("Connect") {
                     // Switch the match source across; the socket client itself

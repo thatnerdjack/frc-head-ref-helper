@@ -19,6 +19,10 @@ struct SettingsScreen: View {
     @Environment(Notebook.self) private var notebook
     @FocusState private var eventCodeFocused: Bool
 
+    /// Injectable so a preview or a test can hand in the in-memory store —
+    /// Keychain access from a test bundle is entitlement-flaky.
+    var credentialStore: any CredentialStoring = KeychainCredentialStore()
+
     var body: some View {
         @Bindable var notebook = notebook
 
@@ -26,6 +30,7 @@ struct SettingsScreen: View {
             eventSection
             sourcesSection
             coverageSection
+            credentialsSection
 
             Section("Notebook") {
                 Toggle("Escalation hints", isOn: $notebook.escalationHintsEnabled)
@@ -34,12 +39,13 @@ struct SettingsScreen: View {
             }
 
             exportSection
+            attributionSection
 
             Section {
                 NavigationLink("Cheesy Arena connection", value: Notebook.SettingsRoute.arena)
             } footer: {
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Entries stay on your decice. Nothing is sent to the arena.")
+                    Text("Entries stay on your device. Nothing is sent to the arena.")
                     // Which manual these rules came from. A referee needs to
                     // know this before trusting a rule number.
                     Text("Rules current as of \(RuleCatalog.manualVersion).")
@@ -52,6 +58,62 @@ struct SettingsScreen: View {
         .background(FieldBackdrop())
         .navigationTitle("Settings")
         .tint(RefColor.gold)
+    }
+
+    // MARK: - Credentials
+
+    /// One `SecureField` per source, and nothing else.
+    ///
+    /// An earlier version had an edit/save/cancel state machine per row so a
+    /// stored key was never redisplayed. That was more machinery than the
+    /// problem deserves: `SecureField` already masks its contents, which is the
+    /// same protection Settings gives a Wi-Fi password, and the rest was a
+    /// custom control where the platform has one.
+    @ViewBuilder
+    private var credentialsSection: some View {
+        Section {
+            // Cheesy Arena is deliberately absent: its password is not an API
+            // key, and it belongs on the Cheesy Arena connection screen next
+            // to the address a referee is already typing there.
+            ForEach(CredentialService.webAPIKeys) { service in
+                LabeledContent(service.label) {
+                    CredentialField(service: service, store: credentialStore)
+                        .multilineTextAlignment(.trailing)
+                }
+            }
+        } header: {
+            Text("API keys")
+        } footer: {
+            Text("Stored in the keychain and synced to your other devices via "
+                 + "iCloud Keychain. Cheesy Arena's password is on its own "
+                 + "connection screen.")
+        }
+    }
+
+    // MARK: - Attribution
+
+    /// Required by the sources' terms, not decoration.
+    ///
+    /// FIRST's API Terms of Use require "Event Data provided by FIRST" linking
+    /// to their API page, and for a mobile app allow that to live in an About
+    /// or Info section — which is what this screen is. The Blue Alliance
+    /// requires "Powered by The Blue Alliance" linking back to the site, and
+    /// separately forbids using their name, "TBA", or the lamp logo in an app's
+    /// own branding, which this app does not.
+    private var attributionSection: some View {
+        Section {
+            Link("Event Data provided by FIRST",
+                 destination: URL(string: "https://frc-events.firstinspires.org/services/API")!)
+            Link("Powered by The Blue Alliance",
+                 destination: URL(string: "https://www.thebluealliance.com")!)
+            Link("Queueing data from Nexus for FRC",
+                 destination: URL(string: "https://frc.nexus")!)
+        } header: {
+            Text("Data sources")
+        } footer: {
+            Text("This app is not affiliated with or endorsed by FIRST, "
+                 + "The Blue Alliance, or Nexus.")
+        }
     }
 
     // MARK: - Event
