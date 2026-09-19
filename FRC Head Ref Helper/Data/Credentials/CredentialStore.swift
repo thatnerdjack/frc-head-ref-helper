@@ -86,7 +86,7 @@ extension CredentialStoring {
 
 // MARK: - Errors
 
-nonisolated enum CredentialError: Error, Equatable, CustomStringConvertible {
+nonisolated enum CredentialError: Error, Equatable, CustomStringConvertible, LocalizedError {
     case keychain(OSStatus)
     case notUTF8
 
@@ -99,6 +99,12 @@ nonisolated enum CredentialError: Error, Equatable, CustomStringConvertible {
             return "Stored credential was not valid UTF-8"
         }
     }
+
+    /// `LocalizedError` as well as `CustomStringConvertible`, because
+    /// `error.localizedDescription` is what SwiftUI and most call sites reach
+    /// for, and without this it returns a generic "operation couldn't be
+    /// completed" that names neither the keychain nor the status code.
+    var errorDescription: String? { description }
 }
 
 // MARK: - Keychain

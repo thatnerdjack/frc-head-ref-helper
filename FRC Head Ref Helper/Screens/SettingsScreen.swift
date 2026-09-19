@@ -77,11 +77,8 @@ struct SettingsScreen: View {
             // to the address a referee is already typing there.
             ForEach(CredentialService.webAPIKeys) { service in
                 LabeledContent(service.label) {
-                    SecureField(service.hint, text: binding(for: service))
+                    CredentialField(service: service, store: credentialStore)
                         .multilineTextAlignment(.trailing)
-                        .textContentType(.password)
-                        .textInputAutocapitalization(.never)
-                        .autocorrectionDisabled()
                 }
             }
         } header: {
@@ -91,18 +88,6 @@ struct SettingsScreen: View {
                  + "iCloud Keychain. Cheesy Arena's password is on its own "
                  + "connection screen.")
         }
-    }
-
-    /// Reads through to the keychain and writes back on every edit.
-    ///
-    /// Writing per keystroke rather than on submit is deliberate: a referee who
-    /// types a key and swipes away without hitting return should not silently
-    /// lose it, and a keychain write for four short strings costs nothing.
-    private func binding(for service: CredentialService) -> Binding<String> {
-        Binding(
-            get: { (try? credentialStore.token(for: service)) ?? "" },
-            set: { try? credentialStore.setToken($0, for: service) }
-        )
     }
 
     // MARK: - Attribution
