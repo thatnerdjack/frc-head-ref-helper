@@ -26,6 +26,19 @@ struct FRC_Head_Ref_HelperApp: App {
         }
     }()
 
+    init() {
+        // `AsyncImage` fetches through `URLSession.shared`, which caches into
+        // `URLCache.shared` — and the default shared cache is small. Robot
+        // photos are the only images this app pulls by URL, and a team page
+        // reopened between matches should not re-download them, so the shared
+        // cache is sized for a day's worth of them here.
+        //
+        // This is the whole robot-photo caching strategy. URLSession keys,
+        // revalidates and evicts; there is no bespoke cache to maintain.
+        URLCache.shared = URLCache(memoryCapacity: 16 << 20,
+                                   diskCapacity: 128 << 20)
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()

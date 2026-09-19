@@ -165,7 +165,7 @@ struct FieldTeamRow: View {
         NavigationLink(value: number) {
             HStack(spacing: 10) {
                 AllianceBar(color: allianceColor.bar)
-                TeamLogoPlaceholder()
+                TeamAvatarView(team: number)
 
                 Text(number)
                     .font(RefFont.numeric(24, .semibold))
