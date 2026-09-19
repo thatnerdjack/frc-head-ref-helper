@@ -80,6 +80,30 @@ private extension ArenaSocket.Status {
     }
 }
 
+
+// MARK: - Cheesy Arena payloads
+//
+// Real frame shapes, kept beside the socket tests because the client tests
+// below must share this suite's serialization: these bind real listeners, and
+// two suites doing that in parallel crashed the test process.
+
+let matchLoadJSON = """
+{"type":"matchLoad","data":{"Match":{"Id":41,"Type":2,"TypeOrder":41,\
+"Time":"2026-09-19T10:30:00-07:00","LongName":"Qualification 41","ShortName":"Q41",\
+"NameDetail":"","Red1":8341,"Red2":254,"Red3":971,"Blue1":1678,"Blue2":604,"Blue3":100,\
+"StartedAt":"0001-01-01T00:00:00Z","ScoreCommittedAt":"0001-01-01T00:00:00Z","Status":0},\
+"IsReplay":false,"Teams":{}}}
+"""
+
+let matchTimeJSON = """
+{"type":"matchTime","data":{"MatchState":2,"MatchTimeSec":8}}
+"""
+
+/// A notifier this app does not act on. Must be ignored, not fatal.
+let unknownJSON = """
+{"type":"playSound","data":{"Name":"match_start"}}
+"""
+
 // MARK: - Tests
 
 // `.serialized` because each test binds a real listening socket and runs a real
@@ -205,5 +229,85 @@ struct ArenaSocketTests {
 
         #expect(await socket.currentStatus.isConnected)
         #expect(arena.connectionCount == 1)
+    }
+
+    // MARK: - Cheesy Arena client, end to end
+
+
+    /// Pulls the port back out of FakeArena's URL so the client can build its
+    /// own `/api/arena/websocket` address against it. FakeArena accepts the
+    /// upgrade on any path, which is what makes that work.
+    private func port(of url: URL) throws -> Int {
+        try #require(url.port)
+    }
+
+    // @MainActor because the assertions read `Match`, whose members are
+    // main-actor isolated under this target's default isolation.
+    @MainActor
+    @Test("A real matchLoad frame arrives as a mapped match")
+    func endToEndMatchLoad() async throws {
+        let arena = try FakeArena(script: [matchLoadJSON])
+        let url = try await arena.start()
+        defer { arena.stop() }
+
+        let client = CheesyArenaClient(host: "127.0.0.1", port: try port(of: url))
+        await client.start()
+        defer { Task { await client.stop() } }
+
+        let event = try await firstMatchEvent(from: client)
+        guard case .matchLoaded(let match) = event else {
+            Issue.record("expected a matchLoaded event, got \(event)")
+            return
+        }
+        #expect(match.key == MatchKey(level: .qualification, number: 41))
+        #expect(match.red == ["8341", "254", "971"])
+    }
+
+    // @MainActor because the assertions read `Match`, whose members are
+    // main-actor isolated under this target's default isolation.
+    @MainActor
+    @Test("An unknown notifier is ignored and does not break the feed")
+    func unknownFrameIsIgnored() async throws {
+        // The arena sends sounds and display modes down the same socket. A
+        // decoder that treated those as fatal would drop the connection every
+        // time a match started.
+        let arena = try FakeArena(script: [unknownJSON, matchTimeJSON])
+        let url = try await arena.start()
+        defer { arena.stop() }
+
+        let client = CheesyArenaClient(host: "127.0.0.1", port: try port(of: url))
+        await client.start()
+        defer { Task { await client.stop() } }
+
+        let event = try await firstMatchEvent(from: client)
+        guard case .matchTime(let state, let seconds) = event else {
+            Issue.record("expected a matchTime event, got \(event)")
+            return
+        }
+        #expect(state == .autoPeriod)
+        #expect(seconds == 8)
+    }
+
+    /// The first event that is not a connection-status change.
+    private func firstMatchEvent(
+        from client: CheesyArenaClient,
+        within timeout: Duration = .seconds(10)
+    ) async throws -> ArenaEvent {
+        try await withThrowingTaskGroup(of: ArenaEvent?.self) { group in
+            group.addTask {
+                for await event in client.events {
+                    if case .status = event { continue }
+                    return event
+                }
+                return nil
+            }
+            group.addTask {
+                try await Task.sleep(for: timeout)
+                return nil
+            }
+            defer { group.cancelAll() }
+            let first = try await group.next() ?? nil
+            return try #require(first, "timed out waiting for an arena event")
+        }
     }
 }

@@ -132,6 +132,23 @@ final class Notebook {
     /// source is connected, in which case the schedule drives the UI instead.
     var arenaState: ArenaMatchState?
 
+    // MARK: - Arena feed
+    //
+    // Storage for Notebook+Arena.swift. Held here because `@Observable` only
+    // tracks stored properties declared on the type itself.
+
+    /// Connection health, so the UI can say "reconnecting" instead of showing
+    /// the last thing the field said as though it were current.
+    var arenaStatus: ArenaSocket.Status = .idle
+    /// Whether the arena feed is live, for the Settings and Arena screens.
+    var isArenaConnected: Bool {
+        if case .connected = arenaStatus { return true }
+        return false
+    }
+    @ObservationIgnored var arenaClient: CheesyArenaClient?
+    @ObservationIgnored var arenaHost: String?
+    @ObservationIgnored var arenaFeed: Task<Void, Never>?
+
     /// The schedule in SCHEDULE order, and the key of the match on the field.
     var schedule: [Match] = SampleEvent.schedule()
     var currentMatchKey: MatchKey? = MatchKey(level: .qualification, number: 41)

@@ -90,7 +90,7 @@ final class FakeArena: @unchecked Sendable {
         try await withCheckedThrowingContinuation { continuation in
             // The state handler can fire more than once, and resuming a
             // continuation twice is a hard crash.
-            func finish(_ result: Result<URL, any Error>) {
+            @Sendable func finish(_ result: Result<URL, any Error>) {
                 let alreadyResumed: Bool = self.lock.withLock {
                     defer { self.startResumed = true }
                     return self.startResumed

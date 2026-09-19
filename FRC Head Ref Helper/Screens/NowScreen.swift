@@ -59,16 +59,40 @@ struct NowScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Button { notebook.advanceFieldState() } label: {
-                    HStack(spacing: 7) {
-                        if notebook.fieldState == .live {
-                            Circle().fill(RefColor.live).frame(width: 7, height: 7)
-                        }
-                        Text(notebook.fieldState.label).font(RefFont.text(12, .semibold))
-                    }
-                }
-                .buttonStyle(.glass)
+                // Tappable in DEBUG only.
+                //
+                // Cycling live -> paused -> day complete is a stand-in for the
+                // field telling us a timeout started, and it is genuinely
+                // useful while no source does. Shipping it is another matter: a
+                // head referee holding this at an event can put the app into
+                // "day complete" with one stray tap on the status pill, and
+                // once a real source is driving `fieldState` that tap silently
+                // desyncs the app from the field mid-match.
+                //
+                // `applyDebugLaunchArguments` next door is already compiled out
+                // of release; this was the one that got missed. In release the
+                // pill is what it looks like — a read-only status indicator.
+                #if DEBUG
+                Button { notebook.advanceFieldState() } label: { fieldStatePill }
+                    .buttonStyle(.glass)
+                #else
+                fieldStatePill
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .glassEffect()
+                #endif
             }
+        }
+    }
+
+    /// The status pill's contents. Identical in both builds — only whether it
+    /// is wrapped in a Button differs.
+    private var fieldStatePill: some View {
+        HStack(spacing: 7) {
+            if notebook.fieldState == .live {
+                Circle().fill(RefColor.live).frame(width: 7, height: 7)
+            }
+            Text(notebook.fieldState.label).font(RefFont.text(12, .semibold))
         }
     }
 

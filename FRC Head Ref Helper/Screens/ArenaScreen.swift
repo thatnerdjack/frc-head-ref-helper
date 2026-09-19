@@ -46,18 +46,32 @@ struct ArenaScreen: View {
                 CredentialField(service: .cheesyArena, store: credentialStore,
                                 prompt: "Admin password")
 
-                Button("Connect") {
-                    // Switch the match source across; the socket client itself
-                    // is still to be written.
+                Button(notebook.isArenaConnected ? "Reconnect" : "Connect") {
                     // Enabling is additive: connecting the field server does
                     // not switch anything else off.
                     notebook.sources.enabled.insert(.cheesyArena)
+                    // Opening the feed is a deliberate act, never automatic.
+                    // Until a referee taps this the app runs on its own
+                    // notebook and shows no field data at all, which is the
+                    // honest default for a source that may not be there.
+                    notebook.connectToArena(host: notebook.sources.arenaAddress)
                     notebook.settingsPath.removeAll()
                 }
                 .buttonStyle(.glassProminent)
                 .controlSize(.large)
                 .tint(RefColor.gold)
                 .frame(maxWidth: .infinity)
+
+                if notebook.arenaStatus != .idle {
+                    LabeledContent("Field feed") {
+                        Text(notebook.arenaStatusText)
+                            .foregroundStyle(notebook.isArenaConnected ? RefColor.live : .secondary)
+                    }
+                    Button("Disconnect", role: .destructive) {
+                        notebook.disconnectFromArena()
+                        notebook.sources.enabled.remove(.cheesyArena)
+                    }
+                }
             }
 
             Section {
